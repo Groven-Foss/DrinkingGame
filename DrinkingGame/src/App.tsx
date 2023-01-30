@@ -22,7 +22,7 @@ export default function App() {
     <StrictMode>
       <SafeAreaView style={[styles.OutsideSafeViewContainer]}>
         <View style={styles.InsideSafeViewContainer}>
-          {/* {renderGame ? <GameContainer inGameNames={inGameNames}/> : <HomePage setRenderGame={setRenderGame} setInGameNames={setInGameNames}/>} */}
+          <HomePage />
         </View>
       </SafeAreaView>
 
