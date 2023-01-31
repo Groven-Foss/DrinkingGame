@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {AnnouncementProps} from "../types/types";
 
 export const Announcement: React.FC<{announcement: AnnouncementProps}> = ({announcement}) => {
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{announcement.text}</Text>
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        transform: [{rotate: '90deg'}],
         textAlign: "center",
         color: "white",
         fontSize: 30,

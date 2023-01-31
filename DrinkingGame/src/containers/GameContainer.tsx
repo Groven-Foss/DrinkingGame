@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AnnouncementProps, PlayerList} from "../types/types";
 import {Announcement} from "../components/Announcement";
-import {Button, Pressable, StyleSheet, View} from "react-native";
+import {Pressable, StyleSheet, View} from "react-native";
+import { changeScreenOrientation } from "../components/CommonMethods"
 
 // This should be included after merge
 // export const GameContainer: React.FC<{playerList: PlayerList}> = ({playerList}) => {
@@ -12,6 +13,11 @@ export const GameContainer = () => {
 
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
+
+    // Change screen orientation to LANDSCAPE when game is initialized
+    useEffect(() => {
+        changeScreenOrientation("landscape").then(r => null);
+    }, [announcementCardsList])
 
     const nextAnnouncement = () => {
         // Check if there is a next announcement
@@ -60,17 +66,16 @@ const styles = StyleSheet.create({
     nextButtonView: {
         zIndex: 2,
         position: "absolute",
-        bottom: 0,
         left: 0,
-        height: "50%",
-        width: "100%",
+        height: "100%",
+        width: "50%",
     },
 
     prevButtonView: {
         zIndex: 2,
         position:"absolute",
-        top: 0,
-        height: "50%",
-        width: "100%",
+        right: 0,
+        height: "100%",
+        width: "50%",
     }
 });
