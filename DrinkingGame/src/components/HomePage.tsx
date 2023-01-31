@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {GameContainer} from "../containers/GameContainer";
 
 export default function HomePage() {
 
@@ -32,7 +33,7 @@ export default function HomePage() {
     }
     return (
         <View style={styles.container}>
-            {renderGame ? <Text>Gamecontainer rendered...</Text> : <View style={styles.addPlayersContainer}>
+            {renderGame ? <GameContainer /> : <View style={styles.addPlayersContainer}>
                 <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
 
                 <View style={styles.nameContainer}>
@@ -74,20 +75,18 @@ export default function HomePage() {
     )
 }
 
-
-
-
-
 const styles = StyleSheet.create({
     nameInputView: {
         borderColor: 'black',
         borderWidth: 3,
         alignItems: 'center'
     },
+
     allPlayersText: {
         borderColor: 'black',
         borderWidth: 3,
     },
+
     nameInput: {
         backgroundColor: 'white',
         height: 40,
@@ -97,8 +96,8 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '50%',
         textAlign: 'center'
-
     },
+
     nameContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -107,13 +106,13 @@ const styles = StyleSheet.create({
         borderColor: 'blue',
         borderWidth: 5,
         alignItems: 'center'
-
     },
+
     buttonText: {
         color: 'white',
         fontSize: 16,
-
     },
+
     addPlayerButton: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -123,8 +122,8 @@ const styles = StyleSheet.create({
         width: '50%',
         height: '7%',
         backgroundColor: 'teal',
-
     },
+
     startGameButton: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -135,12 +134,14 @@ const styles = StyleSheet.create({
         height: '7%',
         backgroundColor: 'blue',
     },
+
     container: {
         height: '100%',
         width: '100%',
         borderColor: 'yellow',
         borderWidth: 5,
     },
+
     addPlayersContainer: {
         paddingTop: '10%',
         borderColor: 'black',
@@ -152,8 +153,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 10,
-
     },
+
     numberOfPlayersText: {
         borderColor: 'black',
         borderWidth: 3,
