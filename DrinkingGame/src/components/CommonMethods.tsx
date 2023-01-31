@@ -1,8 +1,11 @@
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-// Helper method to change screen orientation
-// Params: "direction". "landscape" or "portrait"
-// Import it using: "import { changeScreenOrientation } from "../components/CommonMethods"
+/**
+ * Changes screen orientation
+ *
+ * @param {string} direction Target screen orientation direction. Must be either 'landscape' or 'portrait'. Default is 'portrait'
+ * @Import 'import { changeScreenOrientation } from "../components/CommonMethods'
+ */
 export async function changeScreenOrientation(direction: string) {
     switch (direction) {
         case 'landscape':
