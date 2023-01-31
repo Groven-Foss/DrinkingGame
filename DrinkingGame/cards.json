@@ -1,0 +1,43 @@
+[
+  {
+    "text": "Alle spillere trekker 1 kort nå!",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "red",
+    "nextCards": [
+      {
+        "text": "Spilleren med det laveste kortet må drikke 5 slurker",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "green",
+        "nextCards": []
+      }
+    ]
+  },
+
+  {
+    "text": "Spilleren med det høyeste kortet kan dele ut 10 slurker!",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "green",
+    "nextCards": []
+  },
+
+  {
+    "text": "Amund og Håkon må chugge!",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "green",
+    "nextCards": []
+  },
+
+  {
+    "text": "Fellesskål!",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "green",
+    "nextCards": []
+  },
+
+  {
+    "text": "POLITIKORTET",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "green",
+    "nextCards": []
+  }
+]
