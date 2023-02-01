@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { GameContainer } from "../containers/GameContainer";
+import { Player, PlayerList } from '../types/types';
 
 export default function HomePage() {
 
@@ -34,80 +35,92 @@ export default function HomePage() {
         setPlayerNames(arr);
     }
 
-    // display the names of the players that has been typed so far
-    const displayNames = () => {
+    // Adds all valid names and starts the game
+    const startGame = () => {
         const realNames: string[] = [];
         var regExp = /[a-zA-Z]/g;
-
-        // make sure it has letters ('ø,å,æ' doesn't count for now)
+        console.log("new line1111111111111111111")
+        // pushes valid names to realNames list
         playerNames.forEach((playerName) => {
-            if (playerName !== undefined && regExp.test(playerName)) {
+            if (playerName !== undefined && playerName.trim()) {
                 console.log("playerName: " + playerName)
                 realNames.push(playerName);
             }
         });
-        console.log("realnames: " + realNames)
+        console.log("realnames: " + realNames + "|||||||||||||||||||")
         // only let the game start if there are two valid
         if (players >= 2 && realNames.length >= 2) {
+            console.log("GAMES HAS STARTED")
             setRenderGame(false)
+
+            //  let finalPlayers: Player 
+            //  let finalPlayerList: PlayerList
+
+            // for (let i = 0; i < players; i++) {
+
+            //     finalPlayerList.add(playerNames[i])
+            // }
         }
     }
     return (
         <View style={styles.container}>
-            {renderGame ? <GameContainer /> : <View style={styles.addPlayersContainer}>
-                <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
+            {
+                renderGame ? null
+                    :
+                    <View style={styles.addPlayersContainer}>
+                        <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
 
-                <ScrollView
-                    style={styles.scrollViewContainer}
-                    nestedScrollEnabled={true}
-                    ref={scrollRef}
-                    onContentSizeChange={() => {
-                        scrollRef?.current?.scrollToEnd({ animated: true })
-                    }}
-                    horizontal={false}
-                >
+                        <ScrollView
+                            style={styles.scrollViewContainer}
+                            nestedScrollEnabled={true}
+                            ref={scrollRef}
+                            onContentSizeChange={() => {
+                                scrollRef?.current?.scrollToEnd({ animated: true })
+                            }}
+                            horizontal={false}
+                        >
 
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.allPlayersText}>
-                            {playerNames.map((playerName) => {
-                                if (playerName !== undefined) {
+                            <View style={styles.nameContainer}>
+                                <Text style={styles.allPlayersText}>
+                                    {playerNames.map((playerName) => {
+                                        if (playerName !== undefined) {
 
-                                    if (playerName === playerNames[0]) {
-                                        return playerName;
-                                    } else if (playerName === "" && playerName === playerNames[1]) {
-                                        return playerName;
-                                    }
-                                    return ", " + playerName;
+                                            if (playerName === playerNames[0]) {
+                                                return playerName;
+                                            } else if (playerName === "" && playerName === playerNames[1]) {
+                                                return playerName;
+                                            }
+                                            return ", " + playerName;
+                                        }
+                                        return "";
+                                    })}
+                                </Text >
+                                {[...Array(players).keys()].map((i) => {
+                                    // i equals id of field
+                                    return (
+                                        <TextInput key={i} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
+                                    );
+                                })}
+
+                                {isMaxed ?
+                                    <Pressable style={styles.maxPlayersButton} disabled={true}>
+                                        <Text style={styles.buttonText}>Max spillere satt</Text>
+                                    </Pressable>
+                                    :
+                                    <Pressable style={styles.addPlayerButton} onPress={() => addNewPlayerInput()}>
+                                        <Text style={styles.buttonText}>Legg til spiller...</Text>
+                                    </Pressable>
                                 }
-                                return "";
-                            })}
-                        </Text >
-                        {[...Array(players).keys()].map((i) => {
-                            // i equals id of field
-                            return (
-                                <TextInput key={i} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
-                            );
-                        })}
-
-                        {isMaxed ? 
-                        <Pressable style={styles.maxPlayersButton} disabled={true}>
-                            <Text style={styles.buttonText}>Max spillere satt</Text>
-                        </Pressable> 
-                        : 
-                        <Pressable style={styles.addPlayerButton} onPress={() => addNewPlayerInput()}>
-                            <Text style={styles.buttonText}>Legg til spiller...</Text>
+                            </View>
+                        </ScrollView>
+                        <Pressable style={styles.startGameButton} onPress={() => startGame()}>
+                            <Text style={styles.buttonText}>Start drikkinga!</Text>
                         </Pressable>
-                        }
-                    </View>
-                </ScrollView>
-                <Pressable style={styles.startGameButton} onPress={() => displayNames()}>
-                    <Text style={styles.buttonText}>Start drikkinga!</Text>
-                </Pressable>
-                <Pressable style={styles.startGameButton} onPress={() => resetPage()}>
-                    <Text style={styles.buttonText}>reset fuck</Text>
-                </Pressable>
+                        <Pressable style={styles.startGameButton} onPress={() => resetPage()}>
+                            <Text style={styles.buttonText}>reset fuck</Text>
+                        </Pressable>
 
-            </View>}
+                    </View>}
         </View>
     )
 }
