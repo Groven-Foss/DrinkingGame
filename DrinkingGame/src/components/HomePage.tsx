@@ -1,12 +1,31 @@
-import React, { useState } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import {GameContainer} from "../containers/GameContainer";
+import React, { useRef, useState } from 'react'
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { GameContainer } from "../containers/GameContainer";
 
 export default function HomePage() {
 
     const [players, setPlayers] = useState(1);
     const [playerNames, setPlayerNames] = useState<string[]>([]);
     const [renderGame, setRenderGame] = useState(false)
+    const [isMaxed, setIsMaxed] = useState(false)
+
+    const scrollRef = useRef<ScrollView | null>(null); // reference to scollview
+
+    // DEVELOPMENT: reset page
+    const resetPage = () => {
+        setPlayers(1)
+        setIsMaxed(false)
+    }
+
+    // check if you can add a new player input or if maxed is reached
+    const addNewPlayerInput = () => {
+        console.log(players)
+        if (players == 6) {
+            console.log("Disabled legg til spiller...")
+            setIsMaxed(true)
+        }
+        setPlayers((prev) => prev + 1)
+    }
 
     // Updates players to list of players whenever a name is changed
     const updatePlayerNames = (name: string, i: number) => {
@@ -15,10 +34,7 @@ export default function HomePage() {
         setPlayerNames(arr);
     }
 
-    const onlyLettersAndNumbers = (name: string) => {
-        return /^[A-Za-z\Wæøå0-9]*$/.test(name);
-      }
-
+    // display the names of the players that has been typed so far
     const displayNames = () => {
         const realNames: string[] = [];
         var regExp = /[a-zA-Z]/g;
@@ -26,7 +42,7 @@ export default function HomePage() {
         // make sure it has letters ('ø,å,æ' doesn't count for now)
         playerNames.forEach((playerName) => {
             if (playerName !== undefined && regExp.test(playerName)) {
-                console.log("playerName: "+ playerName)
+                console.log("playerName: " + playerName)
                 realNames.push(playerName);
             }
         });
@@ -41,37 +57,53 @@ export default function HomePage() {
             {renderGame ? <GameContainer /> : <View style={styles.addPlayersContainer}>
                 <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
 
-                <View style={styles.nameContainer}>
+                <ScrollView
+                    style={styles.scrollViewContainer}
+                    nestedScrollEnabled={true}
+                    ref={scrollRef}
+                    onContentSizeChange={() => {
+                        scrollRef?.current?.scrollToEnd({ animated: true })
+                    }}
+                    horizontal={false}
+                >
 
-                    <Text style={styles.allPlayersText}>
-                        {playerNames.map((playerName) => {
-                            if (playerName !== undefined) {
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.allPlayersText}>
+                            {playerNames.map((playerName) => {
+                                if (playerName !== undefined) {
 
-                                if (playerName === playerNames[0]) {
-                                    return playerName;
-                                } else if (playerName === "" && playerName === playerNames[1]) {
-                                    return playerName;
+                                    if (playerName === playerNames[0]) {
+                                        return playerName;
+                                    } else if (playerName === "" && playerName === playerNames[1]) {
+                                        return playerName;
+                                    }
+                                    return ", " + playerName;
                                 }
-                                return ", " + playerName;
-                            }
-                            return "";
+                                return "";
+                            })}
+                        </Text >
+                        {[...Array(players).keys()].map((i) => {
+                            // i equals id of field
+                            return (
+                                <TextInput key={i} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
+                            );
                         })}
-                    </Text >
-                    {[...Array(players).keys()].map((i) => {
-                        // i equals id of field
-                        return (
-                            <TextInput key={i} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
-                        );
-                    })}
 
-                    <Pressable style={styles.addPlayerButton} onPress={() => setPlayers((prev) => prev + 1)}>
-                        <Text style={styles.buttonText}>Legg til spiller...</Text>
-                    </Pressable>
-                </View>
+                        {isMaxed ? 
+                        <Pressable style={styles.maxPlayersButton} disabled={true}>
+                            <Text style={styles.buttonText}>Max spillere satt</Text>
+                        </Pressable> 
+                        : 
+                        <Pressable style={styles.addPlayerButton} onPress={() => addNewPlayerInput()}>
+                            <Text style={styles.buttonText}>Legg til spiller...</Text>
+                        </Pressable>
+                        }
+                    </View>
+                </ScrollView>
                 <Pressable style={styles.startGameButton} onPress={() => displayNames()}>
                     <Text style={styles.buttonText}>Start drikkinga!</Text>
                 </Pressable>
-                <Pressable style={styles.startGameButton} onPress={() => setPlayers(1)}>
+                <Pressable style={styles.startGameButton} onPress={() => resetPage()}>
                     <Text style={styles.buttonText}>reset fuck</Text>
                 </Pressable>
 
@@ -103,14 +135,23 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
+    scrollViewContainer: {
+        marginHorizontal: 20,
+        width: '100%',
+        borderColor: 'green',
+        borderWidth: 5,
+    },
     nameContainer: {
+
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        width: '100%',
+        minWidth: '100%',
+        minHeight: '100%',
         borderColor: 'blue',
         borderWidth: 5,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: '15%',
     },
 
     buttonText: {
@@ -128,7 +169,16 @@ const styles = StyleSheet.create({
         height: '7%',
         backgroundColor: 'teal',
     },
+    maxPlayersButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
 
+        borderRadius: 4,
+        elevation: 3,
+        width: '50%',
+        height: '7%',
+        backgroundColor: 'gray',
+    },
     startGameButton: {
         alignItems: 'center',
         justifyContent: 'center',
