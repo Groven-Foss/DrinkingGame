@@ -7,7 +7,7 @@ import { changeScreenOrientation } from "../components/CommonMethods"
 // This should be included after merge
 // export const GameContainer: React.FC<{playerList: PlayerList}> = ({playerList}) => {
 
-export const GameContainer = () => {
+export const GameContainer: React.FC<{playerList: PlayerList}> = ({playerList}) => {
 
     const announcementCardsList: AnnouncementProps[] = require('../../cards.json');
 
