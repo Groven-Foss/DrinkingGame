@@ -15,20 +15,25 @@ export default function HomePage() {
         setPlayerNames(arr);
     }
 
+    const onlyLettersAndNumbers = (name: string) => {
+        return /^[A-Za-z\Wæøå0-9]*$/.test(name);
+      }
+
     const displayNames = () => {
         const realNames: string[] = [];
-        const regExp = /[a-zA-Z]/g;
+        var regExp = /[a-zA-Z]/g;
 
-        // makes sure only names that contain letters and is defined go through
+        // make sure it has letters ('ø,å,æ' doesn't count for now)
         playerNames.forEach((playerName) => {
             if (playerName !== undefined && regExp.test(playerName)) {
+                console.log("playerName: "+ playerName)
                 realNames.push(playerName);
             }
         });
-        console.log(realNames)
+        console.log("realnames: " + realNames)
         // only let the game start if there are two valid
-        if (players >= 2 && realNames.length == 2) {
-            setRenderGame(true)
+        if (players >= 2 && realNames.length >= 2) {
+            setRenderGame(false)
         }
     }
     return (
