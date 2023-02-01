@@ -98,7 +98,7 @@ export default function HomePage() {
                                 {[...Array(players).keys()].map((i) => {
                                     // i equals id of field
                                     return (
-                                        <TextInput key={i} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
+                                        <TextInput key={i} placeholder={"Legg til navn"} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
                                     );
                                 })}
 
@@ -108,7 +108,7 @@ export default function HomePage() {
                                     </Pressable>
                                     :
                                     <Pressable style={styles.addPlayerButton} onPress={() => addNewPlayerInput()}>
-                                        <Text style={styles.buttonText}>Legg til spiller...</Text>
+                                        <Text style={styles.buttonText}>+</Text>
                                     </Pressable>
                                 }
                             </View>
@@ -143,9 +143,11 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 5,
         borderColor: 'black',
+        borderRadius: 20,
         padding: 10,
         width: '50%',
         textAlign: 'center'
+        
     },
 
     scrollViewContainer: {
@@ -170,15 +172,16 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16,
+        
     },
 
     addPlayerButton: {
         alignItems: 'center',
         justifyContent: 'center',
 
-        borderRadius: 4,
+        borderRadius: 20,
         elevation: 3,
-        width: '50%',
+        width: '40%',
         height: '7%',
         backgroundColor: 'teal',
     },
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
-        borderRadius: 4,
+        borderRadius: 20,
         elevation: 3,
         width: '50%',
         height: '7%',
@@ -196,9 +199,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
-        borderRadius: 4,
+        borderRadius: 20,
         elevation: 3,
-        width: '50%',
+        width: '40%',
         height: '7%',
         backgroundColor: 'blue',
     },
