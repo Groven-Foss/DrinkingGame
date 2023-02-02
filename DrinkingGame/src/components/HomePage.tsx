@@ -40,9 +40,9 @@ export default function HomePage() {
           useNativeDriver: false
         })
       ]).start(event => {
-        if (event.finished) {
+        if (event.finished && !renderGame) {
           cycleAnimation();
-        }
+        } 
       });
     }
     cycleAnimation();
@@ -140,7 +140,10 @@ export default function HomePage() {
                                 {[...Array(players).keys()].map((i) => {
                                     // i equals id of field
                                     return (
+                                        <View key={i} style={styles.nameInputContainer}>
                                         <TextInput key={i} placeholder={"Legg til navn"} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
+                                        <Pressable key={i} style={styles.deleteInputField}><Text>-</Text></Pressable>
+                                        </View>
                                     );
                                 })}
 
@@ -206,7 +209,36 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '50%',
         textAlign: 'center'
+    },
+    nameInputContainer: {
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderWidth: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
         
+    },
+    nameContainer: {
+        flex: 1,
+        minWidth: '100%',
+        minHeight: '100%',
+        borderColor: 'blue',
+        borderWidth: 5,
+        alignItems: 'center',
+       justifyContent: 'center', 
+        marginBottom: '15%',
+    },
+    deleteInputField: {
+        borderColor: 'red',
+        backgroundColor: 'red',
+        borderWith: 2,
+        borderRadius: 20,
+        width: '20%',
+        height: 40,
+        margin: 12,
+        marginLeft: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     scrollViewContainer: {
@@ -215,18 +247,7 @@ const styles = StyleSheet.create({
         borderColor: 'green',
         borderWidth: 5,
     },
-    nameContainer: {
 
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        minWidth: '100%',
-        minHeight: '100%',
-        borderColor: 'blue',
-        borderWidth: 5,
-        alignItems: 'center',
-        marginBottom: '15%',
-    },
 
     buttonText: {
         color: 'white',
