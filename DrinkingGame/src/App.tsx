@@ -12,73 +12,19 @@ export default function App() {
   // This property will let you know what is in effect.
   // const {height, width, scale, fontScale} = useWindowDimensions();
   
-  const [animation, setAnimation] = useState(new Animated.Value(0))
-
-  // useEffect(() => {
-  //   handleAnimation
-  // });
-  const boxInterpolation =  animation.interpolate({
-    inputRange: [0, 1],
-    outputRange:["rgb(168,54,235)" , "rgb(60,9,227)"]
-  })
-  const animatedStyle = {
-    backgroundColor: boxInterpolation
-  }
-  
-  function cycleAnimation() {
-    Animated.sequence([
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: 5000,
-        delay: 1000,
-        useNativeDriver: false
-      }),
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 5000,
-        useNativeDriver: false
-      })
-    ]).start(event => {
-      if (event.finished) {
-        cycleAnimation();
-      }
-    });
-  }
-  cycleAnimation();
-
-  
 
   return (
     <StrictMode>
-      <Animated.View style={{...styles.box, ...animatedStyle}}>
-
-      <SafeAreaView>
-
-        <View style={styles.InsideSafeViewContainer}>
-          <HomePage />
-        </View>
-      </SafeAreaView>
-    </Animated.View>
+      <View>
+        <HomePage />
+      </View>
     </StrictMode>
   );
 }
 
 const styles = StyleSheet.create({
 
-  box:{
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#5AD2F4'
-  },
-  InsideSafeViewContainer: {
-    borderColor: 'green',
-    borderWidth: 5,
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-
+ 
 });
 
 registerRootComponent(App);

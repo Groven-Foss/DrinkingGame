@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { GameContainer } from "../containers/GameContainer";
 import { Player, PlayerList } from '../types/types';
 
@@ -11,6 +11,41 @@ export default function HomePage() {
     const [isMaxed, setIsMaxed] = useState(false)
 
     const scrollRef = useRef<ScrollView | null>(null); // reference to scollview
+
+
+    const [animation, setAnimation] = useState(new Animated.Value(0))
+
+    // useEffect(() => {
+    //   handleAnimation
+    // });
+    const boxInterpolation =  animation.interpolate({
+      inputRange: [0, 1],
+      outputRange:["rgb(168,54,235)" , "rgb(60,9,227)"]
+    })
+    const animatedStyle = {
+      backgroundColor: boxInterpolation
+    }
+    // infinite background color animation. 
+    function cycleAnimation() {
+      Animated.sequence([
+        Animated.timing(animation, {
+          toValue: 1,
+          duration: 5000,
+          delay: 1000,
+          useNativeDriver: false
+        }),
+        Animated.timing(animation, {
+          toValue: 0,
+          duration: 5000,
+          useNativeDriver: false
+        })
+      ]).start(event => {
+        if (event.finished) {
+          cycleAnimation();
+        }
+      });
+    }
+    cycleAnimation();
 
     // DEVELOPMENT: reset page
     const resetPage = () => {
@@ -61,9 +96,16 @@ export default function HomePage() {
             //     finalPlayerList.add(playerNames[i])
             // }
         }
+        
     }
+    
     return (
-        <View style={styles.container}>
+        <Animated.View style={{...styles.box, ...animatedStyle}}>
+
+        <SafeAreaView>
+  
+          <View style={styles.InsideSafeViewContainer}>
+          <View style={styles.container}>
             {
                 renderGame ? null
                     :
@@ -122,10 +164,27 @@ export default function HomePage() {
 
                     </View>}
         </View>
+          </View>
+        </SafeAreaView>
+      </Animated.View>
+        
     )
 }
 
 const styles = StyleSheet.create({
+    box:{
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#5AD2F4'
+      },
+      InsideSafeViewContainer: {
+        borderColor: 'green',
+        borderWidth: 5,
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     nameInputView: {
         borderColor: 'black',
         borderWidth: 3,
