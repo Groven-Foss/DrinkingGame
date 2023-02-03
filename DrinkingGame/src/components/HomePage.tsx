@@ -1,4 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {GameContainer} from "../containers/GameContainer";
+import { generateAnnouncementList } from "./CommonMethods";
+import {AnnouncementProps} from "../types/types";
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import GameContainer from "../containers/GameContainer";
 import { Player } from '../types/types';
@@ -29,7 +33,7 @@ export default function HomePage() {
     const animatedStyle = {
       backgroundColor: boxInterpolation
     }
-    // infinite background color animation. 
+    // infinite background color animation.
     function cycleAnimation() {
       Animated.sequence([
         Animated.timing(animation, {
@@ -46,10 +50,18 @@ export default function HomePage() {
       ]).start(event => {
         if (event.finished && !renderGame) {
           cycleAnimation();
-        } 
+        }
       });
     }
     cycleAnimation();
+
+    // Can be used for testing. Randomly generates a list of Announcements
+    const generateListTestMethod = () => {
+        let testList: AnnouncementProps[] = generateAnnouncementList(20);
+        console.log("--- GENERATED LIST --- ");
+        testList.forEach(a => console.log(a.text));
+        console.log("List size: " + testList.length);
+    }
 
     // check if you can add a new player input or if maxed is reached
     const addNewPlayerInput = () => {
@@ -74,7 +86,7 @@ export default function HomePage() {
                 Player.name = name
                 arr[i] = Player;
                 setPlayerList(arr);
-            } 
+            }
     }
 
     // Filter all player names and start game if requirements are met
@@ -90,8 +102,6 @@ export default function HomePage() {
             if (player !== undefined && player.name.trim()) {
                 console.log("playerName: " + player)
                 validNames.push(player);
-            }
-        });
         if (validNames.length >= 2) {
 
             validNames.map((player) => {
@@ -99,15 +109,12 @@ export default function HomePage() {
             })
             console.log("game can start validly.")
             setFinalPlayerList(validNames)
-            setRenderGame(true)
-        }
 
 
         // if (players >= 1 && playerList.length >= 2) {
         //     console.log("GAMES HAS STARTED!!!!!!!!!!!!")
         //     setRenderGame(false)
         // }
-    }
 
     return (
         <Animated.View style={{...styles.box, ...animatedStyle}}>
@@ -118,8 +125,8 @@ export default function HomePage() {
                 renderGame ? <GameContainer players={finalPlayerList}/>
                     :
                     <View style={styles.addPlayersContainer}>
-                         <Text style={styles.title}>Kort fortalt</Text> 
-                         <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text> 
+                         <Text style={styles.title}>Kort fortalt</Text>
+                         <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
 
                         <ScrollView
                             style={styles.scrollViewContainer}
@@ -174,7 +181,7 @@ export default function HomePage() {
           </View>
         </SafeAreaView>
       </Animated.View>
-        
+
     )
 }
 
@@ -230,7 +237,7 @@ const styles = StyleSheet.create({
         // borderWidth: 5,
         justifyContent: 'center',
         alignItems: 'center'
-        
+
     },
     nameContainer: {
         flex: 1,
@@ -239,7 +246,7 @@ const styles = StyleSheet.create({
         // borderColor: 'blue',
         // borderWidth: 5,
         alignItems: 'center',
-       justifyContent: 'center', 
+       justifyContent: 'center',
         marginBottom: '15%',
     },
     deleteInputField: {
@@ -266,7 +273,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16,
-        
+
     },
 
     addPlayerButton: {

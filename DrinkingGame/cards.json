@@ -1,43 +1,99 @@
 [
   {
-    "text": "Alle spillere trekker 1 kort nå!",
+    "text": "Announcement 1",
     "minRequiredPlayers": 2,
     "backgroundColor": "red",
+    "shouldHaveNextCards": true,
     "nextCards": [
       {
-        "text": "Spilleren med det laveste kortet må drikke 5 slurker",
-        "minRequiredPlayers": 2,
+        "text": "Announcement 1a",
+        "minRequiredPlayers": 3,
+        "backgroundColor": "blue",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Announcement 1a1",
+            "minRequiredPlayers": 3,
+            "backgroundColor": "blue",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      },
+      {
+        "text": "Announcement 1b",
+        "minRequiredPlayers": 4,
         "backgroundColor": "green",
-        "nextCards": []
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Announcement 1b1",
+            "minRequiredPlayers": 4,
+            "backgroundColor": "green",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          },
+          {
+            "text": "Announcement 1b2",
+            "minRequiredPlayers": 4,
+            "backgroundColor": "green",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
       }
     ]
   },
-
   {
-    "text": "Spilleren med det høyeste kortet kan dele ut 10 slurker!",
-    "minRequiredPlayers": 2,
-    "backgroundColor": "green",
+    "text": "Announcement 2",
+    "minRequiredPlayers": 5,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
     "nextCards": []
   },
-
   {
-    "text": "Amund og Håkon må chugge!",
-    "minRequiredPlayers": 2,
-    "backgroundColor": "green",
-    "nextCards": []
+    "text": "Announcement 3",
+    "minRequiredPlayers": 6,
+    "backgroundColor": "orange",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Announcement 3a",
+        "minRequiredPlayers": 7,
+        "backgroundColor": "purple",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Announcement 3a1",
+            "minRequiredPlayers": 7,
+            "backgroundColor": "purple",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      },
+      {
+        "text": "Announcement 3b",
+        "minRequiredPlayers": 7,
+        "backgroundColor": "purple",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Announcement 3b1",
+            "minRequiredPlayers": 7,
+            "backgroundColor": "purple",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      }
+    ]
   },
-
   {
-    "text": "Fellesskål!",
-    "minRequiredPlayers": 2,
-    "backgroundColor": "green",
-    "nextCards": []
-  },
-
-  {
-    "text": "POLITIKORTET",
-    "minRequiredPlayers": 2,
-    "backgroundColor": "green",
+    "text": "Announcement 4",
+    "minRequiredPlayers": 5,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
     "nextCards": []
   }
 ]
