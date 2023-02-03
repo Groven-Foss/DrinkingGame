@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {AnnouncementProps, PlayerList} from "../types/types";
+import {AnnouncementProps, GameContainerProps, Player} from "../types/types";
 import {Announcement} from "../components/Announcement";
-import {Pressable, StyleSheet, View} from "react-native";
+import {Pressable, StyleSheet, View, Text} from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods"
 
 // This should be included after merge
 // export const GameContainer: React.FC<{playerList: PlayerList}> = ({playerList}) => {
 
-export const GameContainer = () => {
+export default function GameContainer ({players}: GameContainerProps){
 
     const announcementCardsList: AnnouncementProps[] = require('../../cards.json');
 
@@ -17,6 +17,7 @@ export const GameContainer = () => {
     // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
         changeScreenOrientation("landscape").then(r => null);
+        console.log("GAMECONTAINER HAR FÅTT NAVNENE: " + players)
     }, [announcementCardsList])
 
     const nextAnnouncement = () => {
@@ -36,6 +37,7 @@ export const GameContainer = () => {
     return (
         <View style={styles.container}>
             <View style={styles.nextButtonView}>
+                
                 <Pressable style={{width: "100%", height: "100%", }} onPress={() => nextAnnouncement()} />
             </View>
 

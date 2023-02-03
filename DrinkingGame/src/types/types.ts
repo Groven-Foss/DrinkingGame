@@ -6,10 +6,20 @@ export type AnnouncementProps = {
     nextCards: AnnouncementProps[];
 };
 
-export type PlayerList = {
+export interface GameContainerProps {
     players: Player[]
 }
 
 export type Player = {
     name: string;
+}
+export type updatePlayerNames = {
+    name: string,
+    i: number
+}
+
+export interface NameInputProps {
+    updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void,
+    id: number
+    key: number
 }
