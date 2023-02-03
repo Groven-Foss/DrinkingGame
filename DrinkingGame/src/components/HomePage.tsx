@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import {GameContainer} from "../containers/GameContainer";
+import { generateAnnouncementList } from "./CommonMethods";
+import {AnnouncementProps} from "../types/types";
 
 export default function HomePage() {
 
@@ -13,6 +15,14 @@ export default function HomePage() {
         const arr = [...playerNames];
         arr[i] = name;
         setPlayerNames(arr);
+    }
+
+    // Can be used for testing. Randomly generates a list of Announcements
+    const generateListTestMethod = () => {
+        let testList: AnnouncementProps[] = generateAnnouncementList(20);
+        console.log("--- GENERATED LIST --- ");
+        testList.forEach(a => console.log(a.text));
+        console.log("List size: " + testList.length);
     }
 
     const displayNames = () => {
