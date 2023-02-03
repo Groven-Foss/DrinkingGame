@@ -1,9 +1,7 @@
 import React, { useState, useRef } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import {GameContainer} from "../containers/GameContainer";
 import { generateAnnouncementList } from "./CommonMethods";
 import {AnnouncementProps} from "../types/types";
-import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import GameContainer from "../containers/GameContainer";
 import { Player } from '../types/types';
 import NameInput from './NameInput';
@@ -18,14 +16,9 @@ export default function HomePage() {
     const scrollRef = useRef<ScrollView | null>(null); // reference to scrollview
 
     const [finalPlayerList, setFinalPlayerList] = useState<Player[]>([])
-    // let finalPlayerList: Player[] = []
-
 
     const [animation, setAnimation] = useState(new Animated.Value(0))
 
-    // useEffect(() => {
-    //   handleAnimation
-    // });
     const boxInterpolation =  animation.interpolate({
       inputRange: [0, 1],
       outputRange:["rgb(168,54,235)" , "rgb(60,9,227)"]
@@ -102,6 +95,9 @@ export default function HomePage() {
             if (player !== undefined && player.name.trim()) {
                 console.log("playerName: " + player)
                 validNames.push(player);
+            }
+        });
+
         if (validNames.length >= 2) {
 
             validNames.map((player) => {
@@ -109,12 +105,9 @@ export default function HomePage() {
             })
             console.log("game can start validly.")
             setFinalPlayerList(validNames)
-
-
-        // if (players >= 1 && playerList.length >= 2) {
-        //     console.log("GAMES HAS STARTED!!!!!!!!!!!!")
-        //     setRenderGame(false)
-        // }
+            setRenderGame(true);
+        }
+    }
 
     return (
         <Animated.View style={{...styles.box, ...animatedStyle}}>
@@ -331,5 +324,5 @@ const styles = StyleSheet.create({
         // borderColor: 'black',
         // borderWidth: 3,
         textAlign: 'center',
-    },
+    }
 })
