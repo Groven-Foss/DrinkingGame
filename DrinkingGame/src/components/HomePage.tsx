@@ -1,16 +1,20 @@
 import React, { useRef, useState } from 'react'
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { GameContainer } from "../containers/GameContainer";
-import { Player, PlayerList } from '../types/types';
+import GameContainer from "../containers/GameContainer";
+import { Player } from '../types/types';
+import NameInput from './NameInput';
 
 export default function HomePage() {
 
+    const [inputFields, setInputFields] = useState(1);
     const [players, setPlayers] = useState(1);
-    const [playerNames, setPlayerNames] = useState<string[]>([]);
+    const [playerList, setPlayerList] = useState<Player[]>([]);
     const [renderGame, setRenderGame] = useState(false)
     const [isMaxed, setIsMaxed] = useState(false)
+    const scrollRef = useRef<ScrollView | null>(null); // reference to scrollview
 
-    const scrollRef = useRef<ScrollView | null>(null); // reference to scollview
+    const [finalPlayerList, setFinalPlayerList] = useState<Player[]>([])
+    // let finalPlayerList: Player[] = []
 
 
     const [animation, setAnimation] = useState(new Animated.Value(0))
@@ -47,70 +51,75 @@ export default function HomePage() {
     }
     cycleAnimation();
 
-    // DEVELOPMENT: reset page
-    const resetPage = () => {
-        setPlayers(1)
-        setIsMaxed(false)
-    }
-
     // check if you can add a new player input or if maxed is reached
     const addNewPlayerInput = () => {
-        console.log(players)
-        if (players == 6) {
-            console.log("Disabled legg til spiller...")
+        if (players == 6) { // max 7 players
             setIsMaxed(true)
         }
         setPlayers((prev) => prev + 1)
+        setInputFields((prev) => prev + 1)
     }
 
-    // Updates players to list of players whenever a name is changed
-    const updatePlayerNames = (name: string, i: number) => {
-        const arr = [...playerNames];
-        arr[i] = name;
-        setPlayerNames(arr);
+    // Updates playerlist based on player input changes
+    const updatePlayerNames = (name: string, i: number, deleteInput: boolean) => {
+        if (deleteInput) {
+            const arr = [...playerList];
+            delete arr[i]
+            setPlayerList(arr)
+            setPlayers((prev) => prev - 1)
+            setIsMaxed(false)
+        } else {
+                const arr = [...playerList];
+                const Player: Player = {} as Player;
+                Player.name = name
+                arr[i] = Player;
+                setPlayerList(arr);
+            } 
     }
 
-    // Adds all valid names and starts the game
+    // Filter all player names and start game if requirements are met
     const startGame = () => {
-        const realNames: string[] = [];
-        var regExp = /[a-zA-Z]/g;
-        console.log("new line1111111111111111111")
         // pushes valid names to realNames list
-        playerNames.forEach((playerName) => {
-            if (playerName !== undefined && playerName.trim()) {
-                console.log("playerName: " + playerName)
-                realNames.push(playerName);
+        console.log("Before: " + playerList)
+        const validNames: Player[] = [];
+
+        // playerList.filter((player) => { player !== undefined && player.name.trim().length > 0 });
+        //console.log("after: " + playerList.filter((player) => { player !== undefined && player.name.trim().length > 0 }))
+        console.log(playerList)
+        playerList.forEach((player) => {
+            if (player !== undefined && player.name.trim()) {
+                console.log("playerName: " + player)
+                validNames.push(player);
             }
         });
-        console.log("realnames: " + realNames + "|||||||||||||||||||")
-        // only let the game start if there are two valid
-        if (players >= 2 && realNames.length >= 2) {
-            console.log("GAMES HAS STARTED")
-            setRenderGame(false)
+        if (validNames.length >= 2) {
 
-            //  let finalPlayers: Player 
-            //  let finalPlayerList: PlayerList
-
-            // for (let i = 0; i < players; i++) {
-
-            //     finalPlayerList.add(playerNames[i])
-            // }
+            validNames.map((player) => {
+                console.log("name:   " + player.name)
+            })
+            console.log("game can start validly.")
+            setFinalPlayerList(validNames)
+            setRenderGame(true)
         }
-        
+
+
+        // if (players >= 1 && playerList.length >= 2) {
+        //     console.log("GAMES HAS STARTED!!!!!!!!!!!!")
+        //     setRenderGame(false)
+        // }
     }
-    
+
     return (
         <Animated.View style={{...styles.box, ...animatedStyle}}>
-
         <SafeAreaView>
-  
           <View style={styles.InsideSafeViewContainer}>
           <View style={styles.container}>
             {
-                renderGame ? null
+                renderGame ? <GameContainer players={finalPlayerList}/>
                     :
                     <View style={styles.addPlayersContainer}>
-                        <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text>
+                         <Text style={styles.title}>Kort fortalt</Text> 
+                         <Text style={styles.numberOfPlayersText}>Antall spillere: {players}</Text> 
 
                         <ScrollView
                             style={styles.scrollViewContainer}
@@ -123,7 +132,7 @@ export default function HomePage() {
                         >
 
                             <View style={styles.nameContainer}>
-                                <Text style={styles.allPlayersText}>
+                                {/* <Text style={styles.allPlayersText}>
                                     {playerNames.map((playerName) => {
                                         if (playerName !== undefined) {
 
@@ -132,18 +141,17 @@ export default function HomePage() {
                                             } else if (playerName === "" && playerName === playerNames[1]) {
                                                 return playerName;
                                             }
-                                            return ", " + playerName;
+                                            return "," + playerName;
                                         }
                                         return "";
                                     })}
-                                </Text >
-                                {[...Array(players).keys()].map((i) => {
+                                </Text > */}
+                                {
+                                [...Array(inputFields).keys()].map((i) => {
+                                    //nameInputList.push()
                                     // i equals id of field
                                     return (
-                                        <View key={i} style={styles.nameInputContainer}>
-                                        <TextInput key={i} placeholder={"Legg til navn"} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, i)} />
-                                        <Pressable key={i} style={styles.deleteInputField}><Text>-</Text></Pressable>
-                                        </View>
+                                        <NameInput updatePlayerNames={updatePlayerNames} key={i} id={i}/>
                                     );
                                 })}
 
@@ -161,10 +169,6 @@ export default function HomePage() {
                         <Pressable style={styles.startGameButton} onPress={() => startGame()}>
                             <Text style={styles.buttonText}>Start drikkinga!</Text>
                         </Pressable>
-                        <Pressable style={styles.startGameButton} onPress={() => resetPage()}>
-                            <Text style={styles.buttonText}>reset fuck</Text>
-                        </Pressable>
-
                     </View>}
         </View>
           </View>
@@ -175,36 +179,46 @@ export default function HomePage() {
 }
 
 const styles = StyleSheet.create({
+    title: {
+        fontSize: 30,
+        color: 'white',
+        fontWeight: 'bold',
+        borderColor: 'black',
+        width: '55%',
+        borderWidth: 5,
+        borderRadius: 20,
+        textAlign: 'center',
+    },
     box:{
         width: '100%',
         height: '100%',
         backgroundColor: '#5AD2F4'
       },
       InsideSafeViewContainer: {
-        borderColor: 'green',
-        borderWidth: 5,
+        // borderColor: 'green',
+        // borderWidth: 5,
         height: '100%',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
       },
     nameInputView: {
-        borderColor: 'black',
-        borderWidth: 3,
+        // borderColor: 'black',
+        // borderWidth: 3,
         alignItems: 'center'
     },
 
     allPlayersText: {
-        borderColor: 'black',
-        borderWidth: 3,
+        // borderColor: 'black',
+        // borderWidth: 3,
     },
 
     nameInput: {
         backgroundColor: 'white',
         height: 40,
         margin: 12,
-        borderWidth: 5,
-        borderColor: 'black',
+        // borderWidth: 5,
+        // borderColor: 'black',
         borderRadius: 20,
         padding: 10,
         width: '50%',
@@ -212,8 +226,8 @@ const styles = StyleSheet.create({
     },
     nameInputContainer: {
         flexDirection: 'row',
-        borderColor: 'black',
-        borderWidth: 5,
+        // borderColor: 'black',
+        // borderWidth: 5,
         justifyContent: 'center',
         alignItems: 'center'
         
@@ -222,8 +236,8 @@ const styles = StyleSheet.create({
         flex: 1,
         minWidth: '100%',
         minHeight: '100%',
-        borderColor: 'blue',
-        borderWidth: 5,
+        // borderColor: 'blue',
+        // borderWidth: 5,
         alignItems: 'center',
        justifyContent: 'center', 
         marginBottom: '15%',
@@ -231,8 +245,8 @@ const styles = StyleSheet.create({
     deleteInputField: {
         borderColor: 'red',
         backgroundColor: 'red',
-        borderWith: 2,
-        borderRadius: 20,
+        // borderWidth: 2,
+        // borderRadius: 20,
         width: '20%',
         height: 40,
         margin: 12,
@@ -244,8 +258,8 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         marginHorizontal: 20,
         width: '100%',
-        borderColor: 'green',
-        borderWidth: 5,
+        // borderColor: 'green',
+        // borderWidth: 5,
     },
 
 
@@ -289,14 +303,14 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         width: '100%',
-        borderColor: 'yellow',
-        borderWidth: 5,
+        // borderColor: 'yellow',
+        // borderWidth: 5,
     },
 
     addPlayersContainer: {
         paddingTop: '10%',
-        borderColor: 'black',
-        borderWidth: 5,
+        // borderColor: 'black',
+        // borderWidth: 5,
         height: '100%',
         width: '100%',
         flex: 1,
@@ -307,8 +321,8 @@ const styles = StyleSheet.create({
     },
 
     numberOfPlayersText: {
-        borderColor: 'black',
-        borderWidth: 3,
+        // borderColor: 'black',
+        // borderWidth: 3,
         textAlign: 'center',
     },
 })
