@@ -115,7 +115,7 @@ export default function HomePage() {
           <View style={styles.InsideSafeViewContainer}>
           <View style={styles.container}>
             {
-                renderGame ? <GameContainer players={finalPlayerList}/>
+                renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)}/>
                     :
                     <View style={styles.addPlayersContainer}>
                          <Text style={styles.title}>Kort fortalt</Text>
