@@ -42,22 +42,13 @@ export default function GameContainer ({players, announcementList}: GameContaine
                 randomPlayerOrder = findRandomPlayers(players.length);
             }
         }
-        console.log("\n");
-        announcementList.forEach(a => {
-            console.log(a.text);
-        })
-
-        console.log("Length before: " + announcementList.length);
-        console.log("Last element before: " + announcementList[announcementList.length - 1].text);
 
         // Pop last elements if they should have nextCards
         let removeLastElement = true;
         let count = 0;
 
         while (removeLastElement) {
-            console.log("Trying: " + announcementList[announcementList.length - 1].text);
             if (announcementList[announcementList.length - 1].shouldHaveNextCards) {
-                console.log("Popping!");
                 announcementList.pop();
             } else {
                 removeLastElement = false;
@@ -70,11 +61,7 @@ export default function GameContainer ({players, announcementList}: GameContaine
             }
         }
 
-        console.log("Length after: " + announcementList.length);
-        console.log("Last element after: " + announcementList[announcementList.length - 1].text);
-
         // Add the last card: Game is over!
-
         announcementList.push({
             text: "SPILLET ER OVER!",
             minRequiredPlayers: 1,
@@ -139,8 +126,6 @@ export default function GameContainer ({players, announcementList}: GameContaine
      * @return {string} modified string, where hashtags have been replaced with random names
      */
     const replaceTagsWithName = (text: string, selectedPlayers: Player[]) => {
-        console.log("Text: " + text);
-
         let namesToReplace: number = 0;
 
         if (text.indexOf("#1") != -1) {
