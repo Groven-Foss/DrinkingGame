@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { GameContainerProps, Player } from "../types/types";
+import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
 import { Announcement } from "../components/Announcement";
 import { Pressable, StyleSheet, View } from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods";
 
-export default function GameContainer ({players, announcementList}: GameContainerProps) {
+export default function GameContainer ({ players, announcementList }: GameContainerProps) {
 
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
     const [isModifyingAnnouncemnetList, setIsModifyingAnnouncementList] = useState(true);
+    const [modifiedAnnouncementList, setModifiedAnnouncementList] = useState<AnnouncementProps[]>([]);
+    const [renderAnnouncementDirection, setRenderAnnouncementDirection] = useState("right"); // Direction - used for animation in Announcement.tsx
 
     // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
@@ -16,31 +18,71 @@ export default function GameContainer ({players, announcementList}: GameContaine
         updateAnnouncementWithNames();
     }, [announcementList])
 
+    useEffect(() => {
+        // Add the last card to the announcementList: Game is Over
+        if (!isModifyingAnnouncemnetList) {
+            setModifiedAnnouncementList(modifiedAnnouncementList => [...modifiedAnnouncementList, {
+                text: "SPILLET ER OVER!",
+                minRequiredPlayers: 1,
+                backgroundColor: "yellow",
+                shouldHaveNextCards: false,
+                nextCards: []
+            }]);
+        }
+    }, [isModifyingAnnouncemnetList])
+
     const nextAnnouncement = () => {
         // Check if there is a next announcement
-        if (currentAnnouncementIndex != announcementList.length - 1) {
-            setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
+        if (currentAnnouncementIndex != modifiedAnnouncementList.length - 1) {
+            if (renderAnnouncementDirection === "right") {
+                setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
+            } else {
+                setRenderAnnouncementDirection("right");
+            }
         }
     }
 
     const previousAnnouncement = () => {
         // Check if there is a previous announcement
         if (currentAnnouncementIndex > 0) {
-            setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
+            if (renderAnnouncementDirection === "left") {
+                setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
+            } else {
+                setRenderAnnouncementDirection("left");
+            }
         }
     }
 
+    useEffect(() => {
+        if (renderAnnouncementDirection === "left") {
+            setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
+        } else if (renderAnnouncementDirection === "right") {
+            setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
+        }
+    }, [renderAnnouncementDirection])
+
     // Update all announcements, and add in random names
     const updateAnnouncementWithNames = () => {
+
+        setModifiedAnnouncementList([]);
 
         let randomPlayerOrder: Player[] = findRandomPlayers(players.length);
 
         for (let i = 0; i < announcementList.length; i++) {
 
-            announcementList[i].text = replaceTagsWithName(announcementList[i].text, randomPlayerOrder);
+            const modifiedAnnouncement: AnnouncementProps = {} as AnnouncementProps;
+
+            modifiedAnnouncement.text = replaceTagsWithName(announcementList[i].text, randomPlayerOrder);
+            modifiedAnnouncement.minRequiredPlayers = announcementList[i].minRequiredPlayers;
+            modifiedAnnouncement.backgroundColor = announcementList[i].backgroundColor;
+            modifiedAnnouncement.shouldHaveNextCards = announcementList[i].shouldHaveNextCards;
+            modifiedAnnouncement.nextCards = announcementList[i].nextCards;
+
             if (!(announcementList[i].shouldHaveNextCards)) {
                 randomPlayerOrder = findRandomPlayers(players.length);
             }
+
+            setModifiedAnnouncementList(modifiedAnnouncementList => [...modifiedAnnouncementList, modifiedAnnouncement]);
         }
 
         // Pop last elements if they should have nextCards
@@ -60,15 +102,6 @@ export default function GameContainer ({players, announcementList}: GameContaine
                 break;
             }
         }
-
-        // Add the last card: Game is over!
-        announcementList.push({
-            text: "SPILLET ER OVER!",
-            minRequiredPlayers: 1,
-            backgroundColor: "yellow",
-            shouldHaveNextCards: false,
-            nextCards: []
-        })
 
         setIsModifyingAnnouncementList(false);
     }
@@ -164,7 +197,11 @@ export default function GameContainer ({players, announcementList}: GameContaine
             </View>
 
             <View style={styles.textView}>
-                { !isModifyingAnnouncemnetList && announcementList.length != 0 && <Announcement announcement={announcementList[currentAnnouncementIndex]} />}
+                { !isModifyingAnnouncemnetList
+                    && modifiedAnnouncementList.length != 0
+                    && (renderAnnouncementDirection === "right" || renderAnnouncementDirection === "left")
+                    && <Announcement direction={renderAnnouncementDirection} announcement={modifiedAnnouncementList[currentAnnouncementIndex]} />
+                }
             </View>
 
             <View style={styles.prevButtonView}>
