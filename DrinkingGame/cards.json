@@ -20,7 +20,7 @@
         "nextCards": []
       },
       {
-        "text": "FLIPPEKONKURRANSE! \nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
+        "text": "FLIPPEKONKURRANSE! \n\nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
         "minRequiredPlayers": 3,
         "backgroundColor": "blue",
         "shouldHaveNextCards": true,
@@ -33,7 +33,7 @@
             "nextCards": []
           },
           {
-            "text": "Gratulerer! Vinneren kan dele ut 10 slurker!",
+            "text": "Gratulerer! \nVinneren kan dele ut 10 slurker!",
             "minRequiredPlayers": 3,
             "backgroundColor": "blue",
             "shouldHaveNextCards": false,
@@ -45,34 +45,26 @@
   },
 
   {
-    "text": "#1 må drikke",
-    "minRequiredPlayers": 5,
-    "backgroundColor": "yellow",
-    "shouldHaveNextCards": false,
-    "nextCards": []
-  },
-
-  {
     "text": "#1 trekker 3 kort. \nFortell de andre hvilke kort du trakk.",
     "minRequiredPlayers": 6,
     "backgroundColor": "orange",
     "shouldHaveNextCards": true,
     "nextCards": [
       {
-        "text": "#1, Du skal nå velge 1 av kortene, ikke la de andre vite hva du velger. Legg bort de 2 andre kortene. \nGå runden og tipp hvilket kort #1 valgte - #2 starter",
+        "text": "#1, velg 1 kort og legge bort de 2 andre.\nIkke avslør valget ditt for de andre \n\nGå runden og tipp hvilket kort #1 valgte. \nGå videre når alle har tippet. \n#2 starter runden!",
         "minRequiredPlayers": 7,
         "backgroundColor": "purple",
         "shouldHaveNextCards": true,
         "nextCards": [
           {
-            "text": "Gratulerer til alle de synske! De som tippet riktig kan dele ut 2 slurker",
+            "text": "Gratulerer til alle de synske! \nDe som tippet riktig kan dele ut 2 slurker",
             "minRequiredPlayers": 7,
             "backgroundColor": "purple",
             "shouldHaveNextCards": false,
             "nextCards": []
           },
           {
-            "text": "Lønner seg ikke alltid å gjette riktig. Alle som tippet riktig må drikke!",
+            "text": "Lønner seg ikke alltid å gjette riktig. \nAlle som tippet riktig må drikke!",
             "minRequiredPlayers": 7,
             "backgroundColor": "purple",
             "shouldHaveNextCards": false,
@@ -91,22 +83,6 @@
   },
 
   {
-    "text": "#1 og #2 må drikke 1 slurk",
-    "minRequiredPlayers": 5,
-    "backgroundColor": "yellow",
-    "shouldHaveNextCards": false,
-    "nextCards": []
-  },
-
-  {
-    "text": "#1 og #2 må skåle",
-    "minRequiredPlayers": 5,
-    "backgroundColor": "yellow",
-    "shouldHaveNextCards": false,
-    "nextCards": []
-  },
-
-  {
     "text": "FELLESSKÅL!",
     "minRequiredPlayers": 1,
     "backgroundColor": "yellow",
@@ -115,26 +91,18 @@
   },
 
   {
-    "text": "PEKELEKEN! \nPek på den som er minst full. Trykk deretter videre...",
+    "text": "#1 trekker 1 kort. \nAlle i rommet skal drikke antall slurker som kortet viser!",
     "minRequiredPlayers": 1,
     "backgroundColor": "yellow",
-    "shouldHaveNextCards": true,
-    "nextCards": [
-      {
-        "text": "Den utvalgte må opp i ringa! \nDrikk 3 slurker",
-        "minRequiredPlayers": 1,
-        "backgroundColor": "yellow",
-        "shouldHaveNextCards": false,
-        "nextCards": []
-      },
-      {
-        "text": "Alle mot 1 er vel ikke rettferdig? Alle som pekte på den utvalgte må drikke",
-        "minRequiredPlayers": 1,
-        "backgroundColor": "yellow",
-        "shouldHaveNextCards": false,
-        "nextCards": []
-      }
-    ]
-  }
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
 
+  {
+    "text": "Rask Fakta!\n\nAlle trekker et kort hver og ser på kort-typen (hjerter, ruter osv.). Alle spillere skal på rundgang si en quick fakta om seg selv som ingen vet om. De som trakk et kort av rød type skal si en sann fakta, de med mørk type skal lyve. På runde skal hver spiller prøve å finne ut hvem som lyver og hvem som sier sannheten. En slurk hver gang du gjetter feil! #1 starter runden.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  }
 ]
