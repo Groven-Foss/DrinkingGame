@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import {StyleSheet, Pressable, TextInput, View, Text} from 'react-native'
-import { NameInputProps, updatePlayerNames } from '../types/types';
+import { NameInputProps } from '../types/types';
 
-export default function NameInput({updatePlayerNames, id, key}: NameInputProps) {
+export default function NameInput({updatePlayerNames, id}: NameInputProps) {
 
 
     const [showView, setShowView] = useState(true)
@@ -19,7 +19,7 @@ export default function NameInput({updatePlayerNames, id, key}: NameInputProps) 
         {showView && 
             <View key={id} style={styles.nameInputContainer}>
                 <TextInput key={id} placeholder={"Legg til navn"} style={styles.nameInput} onChangeText={(Text) => updatePlayerNames(Text, id, false)} />
-                <Pressable key={id} style={styles.deleteInputField} onPress={() => removeInputField()}><Text>-</Text></Pressable>
+                <Pressable key={id + 1000} style={styles.deleteInputField} onPress={() => removeInputField()}><Text>-</Text></Pressable>
             </View>
 
         }

@@ -7,19 +7,15 @@ export type AnnouncementProps = {
 };
 
 export interface GameContainerProps {
-    players: Player[]
+    players: Player[],
+    announcementList: AnnouncementProps[]
 }
 
 export type Player = {
     name: string;
 }
-export type updatePlayerNames = {
-    name: string,
-    i: number
-}
 
 export interface NameInputProps {
     updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void,
     id: number
-    key: number
 }

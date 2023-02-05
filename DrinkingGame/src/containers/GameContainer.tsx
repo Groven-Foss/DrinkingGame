@@ -1,28 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {AnnouncementProps, GameContainerProps, Player} from "../types/types";
-import {Announcement} from "../components/Announcement";
-import {Pressable, StyleSheet, View, Text} from "react-native";
-import { changeScreenOrientation } from "../components/CommonMethods"
+import React, { useEffect, useState } from "react";
+import { GameContainerProps, Player } from "../types/types";
+import { Announcement } from "../components/Announcement";
+import { Pressable, StyleSheet, View } from "react-native";
+import { changeScreenOrientation } from "../components/CommonMethods";
 
-// This should be included after merge
-// export const GameContainer: React.FC<{playerList: PlayerList}> = ({playerList}) => {
-
-export default function GameContainer ({players}: GameContainerProps){
-
-    const announcementCardsList: AnnouncementProps[] = require('../../cards.json');
+export default function GameContainer ({players, announcementList}: GameContainerProps) {
 
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
+    const [isModifyingAnnouncemnetList, setIsModifyingAnnouncementList] = useState(true);
 
     // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
         changeScreenOrientation("landscape").then(r => null);
-        console.log("GAMECONTAINER HAR FÅTT NAVNENE: " + players)
-    }, [announcementCardsList])
+        updateAnnouncementWithNames();
+    }, [announcementList])
 
     const nextAnnouncement = () => {
         // Check if there is a next announcement
-        if (currentAnnouncementIndex != announcementCardsList.length - 1) {
+        if (currentAnnouncementIndex != announcementList.length - 1) {
             setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
         }
     }
@@ -34,6 +30,132 @@ export default function GameContainer ({players}: GameContainerProps){
         }
     }
 
+    // Update all announcements, and add in random names
+    const updateAnnouncementWithNames = () => {
+
+        let randomPlayerOrder: Player[] = findRandomPlayers(players.length);
+
+        for (let i = 0; i < announcementList.length; i++) {
+
+            announcementList[i].text = replaceTagsWithName(announcementList[i].text, randomPlayerOrder);
+            if (!(announcementList[i].shouldHaveNextCards)) {
+                randomPlayerOrder = findRandomPlayers(players.length);
+            }
+        }
+
+        // Pop last elements if they should have nextCards
+        let removeLastElement = true;
+        let count = 0;
+
+        while (removeLastElement) {
+            if (announcementList[announcementList.length - 1].shouldHaveNextCards) {
+                announcementList.pop();
+            } else {
+                removeLastElement = false;
+            }
+
+            // Avoid infinite loop
+            count += 1;
+            if (count >= 20) {
+                break;
+            }
+        }
+
+        // Add the last card: Game is over!
+        announcementList.push({
+            text: "SPILLET ER OVER!",
+            minRequiredPlayers: 1,
+            backgroundColor: "yellow",
+            shouldHaveNextCards: false,
+            nextCards: []
+        })
+
+        setIsModifyingAnnouncementList(false);
+    }
+
+
+    /**
+     * Find random players
+     * Used for replacing #1 and #2 in Announcements
+     *
+     * @param {number} playerCount Number of players to return
+     * @return {Player[]} A list of Players
+     */
+    const findRandomPlayers = (playerCount: number): Player[] => {
+        // Error handling
+        if (playerCount > players.length) {
+            console.log("arg: playerCount is too high in findRandomPlayers()");
+            return []
+        }
+
+        // Find players and avoid duplicates
+        const playersToReturn: Player[] = [];
+        const usedIndexes: number[] = [];
+
+        for (let i = 0; i < playerCount; i++) {
+            let playerValid: boolean = false;
+            let count: number = 0;
+
+            while (!playerValid) {
+                const randInt: number = Math.floor(Math.random() * (players.length - 1 + 1));
+                if (!usedIndexes.includes(randInt)) {
+                    if (!playersToReturn.includes(players[randInt])) {
+                        playersToReturn.push(players[randInt]);
+                        usedIndexes.push(randInt);
+                        playerValid = true;
+                    }
+                }
+
+                // Error handling
+                count += 1;
+                if (count >= 20) {
+                    console.log("Infinite loop");
+                    break;
+                }
+            }
+        }
+
+        return playersToReturn;
+    }
+
+    /**
+     * Replace hashtags with names in announcements
+     *
+     * @param {string} text Text to modify
+     * @param {Player[]} selectedPlayers List of Players
+     * @return {string} modified string, where hashtags have been replaced with random names
+     */
+    const replaceTagsWithName = (text: string, selectedPlayers: Player[]) => {
+        let namesToReplace: number = 0;
+
+        if (text.indexOf("#1") != -1) {
+            namesToReplace += 1;
+            if (text.indexOf("#2") != -1) {
+                namesToReplace += 1;
+                if (text.indexOf("#3") != -1) {
+                    namesToReplace += 1;
+                    if (text.indexOf("#4") != -1) {
+                        namesToReplace += 1;
+                    }
+                }
+            }
+        }
+
+        let newText: string = text;
+
+        if (namesToReplace > selectedPlayers.length) {
+            console.log("Error: namesToReplace: " + namesToReplace + " is bigger than selectedPlayers: " + selectedPlayers);
+            return text;
+        }
+
+        for (let i = 1; i <= namesToReplace; i++) {
+            newText = newText.replaceAll("#" + i.toString(), selectedPlayers[i-1].name);
+        }
+
+        return newText;
+    }
+
+
     return (
         <View style={styles.container}>
             <View style={styles.nextButtonView}>
@@ -42,7 +164,7 @@ export default function GameContainer ({players}: GameContainerProps){
             </View>
 
             <View style={styles.textView}>
-                { announcementCardsList && <Announcement announcement={announcementCardsList[currentAnnouncementIndex]} /> }
+                { !isModifyingAnnouncemnetList && announcementList.length != 0 && <Announcement announcement={announcementList[currentAnnouncementIndex]} />}
             </View>
 
             <View style={styles.prevButtonView}>
