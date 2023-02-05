@@ -12,6 +12,10 @@ export default function GameContainer ({ players, announcementList }: GameContai
     const [modifiedAnnouncementList, setModifiedAnnouncementList] = useState<AnnouncementProps[]>([]);
     const [renderAnnouncementDirection, setRenderAnnouncementDirection] = useState("right"); // Direction - used for animation in Announcement.tsx
 
+    // Variables - avoid animations the first time we render an Announcement
+    const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+    const [isFirstRenderOfAnnouncement, setIsFirstRenderOfAnnouncement] = useState<boolean>(true);
+
     // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
         changeScreenOrientation("landscape").then(r => null);
@@ -23,7 +27,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
         if (!isModifyingAnnouncemnetList) {
             setModifiedAnnouncementList(modifiedAnnouncementList => [...modifiedAnnouncementList, {
                 text: "SPILLET ER OVER!",
-                minRequiredPlayers: 1,
+                minRequiredPlayers: 2,
                 backgroundColor: "yellow",
                 shouldHaveNextCards: false,
                 nextCards: []
@@ -34,6 +38,10 @@ export default function GameContainer ({ players, announcementList }: GameContai
     const nextAnnouncement = () => {
         // Check if there is a next announcement
         if (currentAnnouncementIndex != modifiedAnnouncementList.length - 1) {
+
+            // Avoid animation for the first announcement
+            setIsFirstRenderOfAnnouncement(false);
+
             if (renderAnnouncementDirection === "right") {
                 setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
             } else {
@@ -54,10 +62,14 @@ export default function GameContainer ({ players, announcementList }: GameContai
     }
 
     useEffect(() => {
-        if (renderAnnouncementDirection === "left") {
-            setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
-        } else if (renderAnnouncementDirection === "right") {
-            setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
+        if (isFirstRender) {
+            setIsFirstRender(false);
+        } else {
+            if (renderAnnouncementDirection === "left") {
+                setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
+            } else if (renderAnnouncementDirection === "right") {
+                setCurrentAnnouncementIndex(currentAnnouncementIndex + 1);
+            }
         }
     }, [renderAnnouncementDirection])
 
@@ -200,7 +212,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
                 { !isModifyingAnnouncemnetList
                     && modifiedAnnouncementList.length != 0
                     && (renderAnnouncementDirection === "right" || renderAnnouncementDirection === "left")
-                    && <Announcement direction={renderAnnouncementDirection} announcement={modifiedAnnouncementList[currentAnnouncementIndex]} />
+                    && <Announcement firstRenderOfAnnouncements={isFirstRenderOfAnnouncement} direction={renderAnnouncementDirection} announcement={modifiedAnnouncementList[currentAnnouncementIndex]} />
                 }
             </View>
 

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Animated } from 'react-native';
 import {AnnouncementProps} from "../types/types";
 
-export const Announcement: React.FC<{announcement: AnnouncementProps, direction: "right" | "left"}> = ({announcement, direction}) => {
+export const Announcement: React.FC<{
+    announcement: AnnouncementProps,
+    direction: "right" | "left",
+    firstRenderOfAnnouncements: true | false}> = (
+        {announcement, direction, firstRenderOfAnnouncements}
+) => {
 
     const [slideAnim] = useState(new Animated.Value(direction === "right" ? 500 : -500));
     const [fadeAnim] = useState(new Animated.Value(0))
@@ -75,16 +80,11 @@ export const Announcement: React.FC<{announcement: AnnouncementProps, direction:
     return (
         <View style={styles.container}>
             {announcement && (
-                <Animated.View
-                    style={{
-                        transform: [{ translateX: slideAnim }],
-                        opacity: fadeAnim,
-                        width: "100%",
-                    }}
-                >
-                    <Text style={styles.text}>{!isAnimatingCurrentText ? announcement.text : oldText}</Text>
-
-                </Animated.View>
+                (!firstRenderOfAnnouncements ?
+                    <Animated.View style={{transform: [{ translateX: slideAnim }], opacity: fadeAnim, width: "100%",}}>
+                        <Text style={styles.text}>{!isAnimatingCurrentText ? announcement.text : oldText}</Text>
+                    </Animated.View> : <Text style={styles.text}>{announcement.text}</Text>
+                )
             )}
         </View>
     );
