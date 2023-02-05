@@ -20,7 +20,7 @@
         "nextCards": []
       },
       {
-        "text": "FLIPPEKONKURRANSE! \nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
+        "text": "FLIPPEKONKURRANSE! \n\nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
         "minRequiredPlayers": 3,
         "backgroundColor": "blue",
         "shouldHaveNextCards": true,
@@ -33,7 +33,7 @@
             "nextCards": []
           },
           {
-            "text": "Gratulerer! Vinneren kan dele ut 10 slurker!",
+            "text": "Gratulerer! \nVinneren kan dele ut 10 slurker!",
             "minRequiredPlayers": 3,
             "backgroundColor": "blue",
             "shouldHaveNextCards": false,
@@ -121,14 +121,14 @@
     "shouldHaveNextCards": true,
     "nextCards": [
       {
-        "text": "Den utvalgte må opp i ringa! \nDrikk 3 slurker",
+        "text": "Den med flest pek må opp i ringa! \nDrikk 3 slurker",
         "minRequiredPlayers": 1,
         "backgroundColor": "yellow",
         "shouldHaveNextCards": false,
         "nextCards": []
       },
       {
-        "text": "Alle mot 1 er vel ikke rettferdig? Alle som pekte på den utvalgte må drikke",
+        "text": "Vi hedrer de som klarer å holde maska. Alle som ikke ble pekt på drikker 1 slurk.",
         "minRequiredPlayers": 1,
         "backgroundColor": "yellow",
         "shouldHaveNextCards": false,

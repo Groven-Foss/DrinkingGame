@@ -6,16 +6,32 @@ export const Announcement: React.FC<{announcement: AnnouncementProps, direction:
 
     const [slideAnim] = useState(new Animated.Value(direction === "right" ? 500 : -500));
     const [fadeAnim] = useState(new Animated.Value(0))
+    const [isAnimatingCurrentText, setIsAnimatingCurrentText] = useState(false);
+    const [oldText, setOldText] = useState("");
 
     useEffect(() => {
+        setIsAnimatingCurrentText(true);
+        slideAnim.setValue(0);
         Animated.timing(
             slideAnim,
             {
-                toValue: 0,
-                duration: 500,
+                toValue: direction === "right" ? -300 : 300,
+                duration: 300,
                 useNativeDriver: true,
             }
-        ).start();
+        ).start(() => {
+            setIsAnimatingCurrentText(false);
+            slideAnim.setValue(direction === "right" ? 500 : -500);
+            Animated.timing(
+                slideAnim,
+                {
+                    toValue: 0,
+                    duration: 500,
+                    useNativeDriver: true,
+                }
+            ).start();
+            setOldText(announcement.text);
+        });
 
         return () => {
             slideAnim.setValue(direction === "right" ? 500 : -500);
@@ -23,19 +39,38 @@ export const Announcement: React.FC<{announcement: AnnouncementProps, direction:
     }, [announcement, direction])
 
     useEffect(() => {
-      Animated.timing(
-            fadeAnim,
-            {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: true
-            }
-        ).start();
+        setOldText(announcement.text);
+    }, [])
 
-        return () => {
-            fadeAnim.setValue(0);
+    useEffect(() => {
+        if (isAnimatingCurrentText) {
+            fadeAnim.setValue(1);
+            Animated.timing(
+                fadeAnim,
+                {
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true
+                }
+            ).start();
         }
-    })
+
+    }, [isAnimatingCurrentText])
+
+    useEffect(() => {
+        if (!isAnimatingCurrentText) {
+            fadeAnim.setValue(0);
+            Animated.timing(
+                fadeAnim,
+                {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: true
+                }
+            ).start();
+        }
+
+    }, [isAnimatingCurrentText])
 
     return (
         <View style={styles.container}>
@@ -47,7 +82,8 @@ export const Announcement: React.FC<{announcement: AnnouncementProps, direction:
                         width: "100%",
                     }}
                 >
-                    <Text style={styles.text}>{announcement.text}</Text>
+                    <Text style={styles.text}>{!isAnimatingCurrentText ? announcement.text : oldText}</Text>
+
                 </Animated.View>
             )}
         </View>
@@ -64,7 +100,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: "center",
         color: "white",
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: "bold",
         width: "100%",
     }
