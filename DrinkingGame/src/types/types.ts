@@ -5,21 +5,18 @@ export type AnnouncementProps = {
     shouldHaveNextCards: boolean;
     nextCards: AnnouncementProps[];
 };
-
 export interface GameContainerProps {
-    players: Player[]
+    players: Player[];
 }
-
 export type Player = {
     name: string;
 }
 export type updatePlayerNames = {
-    name: string,
-    i: number
+    name: string;
+    i: number;
 }
-
 export interface NameInputProps {
-    updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void,
-    id: number
-    key: number
+    updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void;
+    id: number;
+    isAutoFocus: boolean;
 }
