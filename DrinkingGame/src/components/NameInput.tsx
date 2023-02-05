@@ -1,8 +1,6 @@
-import React, {useState} from 'react'
-import {StyleSheet, Pressable, TextInput, View, Text} from 'react-native'
-import { NameInputProps, updatePlayerNames } from '../types/types';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import React, { useState } from 'react'
+import { StyleSheet, Pressable, TextInput, View } from 'react-native'
+import { NameInputProps } from '../types/types';
 import Entypo from 'react-native-vector-icons/Entypo'
 
 export default function NameInput({updatePlayerNames, id, isAutoFocus}: NameInputProps) {

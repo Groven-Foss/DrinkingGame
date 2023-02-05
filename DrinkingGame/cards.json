@@ -1,85 +1,77 @@
 [
   {
-    "text": "Announcement 1",
+    "text": "Alle trekker 1 kort hver",
     "minRequiredPlayers": 2,
     "backgroundColor": "red",
     "shouldHaveNextCards": true,
     "nextCards": [
       {
-        "text": "Announcement 1a",
+        "text": "Den som har det høyeste kortet kan dele ut 5 slurker",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "blue",
+        "shouldHaveNextCards": false,
+        "nextCards": []
+      },
+      {
+        "text": "Den med det laveste kortet må drikke 3 slurker",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "blue",
+        "shouldHaveNextCards": false,
+        "nextCards": []
+      },
+      {
+        "text": "FLIPPEKONKURRANSE! \n\nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
         "minRequiredPlayers": 3,
         "backgroundColor": "blue",
         "shouldHaveNextCards": true,
         "nextCards": [
           {
-            "text": "Announcement 1a1",
+            "text": "Flip the switch: \nVinneren må drikke 3 slurker",
+            "minRequiredPlayers": 3,
+            "backgroundColor": "blue",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          },
+          {
+            "text": "Gratulerer! \nVinneren kan dele ut 10 slurker!",
             "minRequiredPlayers": 3,
             "backgroundColor": "blue",
             "shouldHaveNextCards": false,
             "nextCards": []
           }
         ]
-      },
-      {
-        "text": "Announcement 1b",
-        "minRequiredPlayers": 4,
-        "backgroundColor": "green",
-        "shouldHaveNextCards": true,
-        "nextCards": [
-          {
-            "text": "Announcement 1b1",
-            "minRequiredPlayers": 4,
-            "backgroundColor": "green",
-            "shouldHaveNextCards": false,
-            "nextCards": []
-          },
-          {
-            "text": "Announcement 1b2",
-            "minRequiredPlayers": 4,
-            "backgroundColor": "green",
-            "shouldHaveNextCards": false,
-            "nextCards": []
-          }
-        ]
       }
     ]
   },
+
   {
-    "text": "Announcement 2",
-    "minRequiredPlayers": 5,
-    "backgroundColor": "yellow",
-    "shouldHaveNextCards": false,
-    "nextCards": []
-  },
-  {
-    "text": "Announcement 3",
+    "text": "#1 trekker 3 kort. \nFortell de andre hvilke kort du trakk.",
     "minRequiredPlayers": 6,
     "backgroundColor": "orange",
     "shouldHaveNextCards": true,
     "nextCards": [
       {
-        "text": "Announcement 3a",
+        "text": "#1, velg 1 kort og legge bort de 2 andre.\nIkke avslør valget ditt for de andre \n\nGå runden og tipp hvilket kort #1 valgte. \nGå videre når alle har tippet. \n#2 starter runden!",
         "minRequiredPlayers": 7,
         "backgroundColor": "purple",
         "shouldHaveNextCards": true,
         "nextCards": [
           {
-            "text": "Announcement 3a1",
+            "text": "Gratulerer til alle de synske! \nDe som tippet riktig kan dele ut 2 slurker",
             "minRequiredPlayers": 7,
             "backgroundColor": "purple",
             "shouldHaveNextCards": false,
             "nextCards": []
-          }
-        ]
-      },
-      {
-        "text": "Announcement 3b",
-        "minRequiredPlayers": 7,
-        "backgroundColor": "purple",
-        "shouldHaveNextCards": true,
-        "nextCards": [
+          },
           {
-            "text": "Announcement 3b1",
+            "text": "Lønner seg ikke alltid å gjette riktig. \nAlle som tippet riktig må drikke!",
+            "minRequiredPlayers": 7,
+            "backgroundColor": "purple",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          },
+          {
+            "text": "Alle som tippet feil må selvfølgelig drikke. Drikk 2 slurker!",
             "minRequiredPlayers": 7,
             "backgroundColor": "purple",
             "shouldHaveNextCards": false,
@@ -89,9 +81,26 @@
       }
     ]
   },
+
   {
-    "text": "Announcement 4",
-    "minRequiredPlayers": 5,
+    "text": "FELLESSKÅL!",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+
+  {
+    "text": "#1 trekker 1 kort. \nAlle i rommet skal drikke antall slurker som kortet viser!",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+
+  {
+    "text": "Rask Fakta!\n\nAlle trekker et kort hver og ser på kort-typen (hjerter, ruter osv.). Alle spillere skal på rundgang si en quick fakta om seg selv som ingen vet om. De som trakk et kort av rød type skal si en sann fakta, de med mørk type skal lyve. På runde skal hver spiller prøve å finne ut hvem som lyver og hvem som sier sannheten. En slurk hver gang du gjetter feil! #1 starter runden.",
+    "minRequiredPlayers": 1,
     "backgroundColor": "yellow",
     "shouldHaveNextCards": false,
     "nextCards": []

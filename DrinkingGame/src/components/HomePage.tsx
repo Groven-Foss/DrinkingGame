@@ -1,4 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { generateAnnouncementList } from "./CommonMethods";
+import {AnnouncementProps} from "../types/types";
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 import GameContainer from "../containers/GameContainer";
 import { Player } from '../types/types';
@@ -24,7 +26,7 @@ export default function HomePage() {
     const animatedStyle = {
         backgroundColor: boxInterpolation
     }
-    // infinite background color animation. 
+    // infinite background color animation.
     function cycleAnimation() {
         Animated.sequence([
             Animated.timing(animation, {
@@ -97,7 +99,7 @@ export default function HomePage() {
                 <View style={styles.InsideSafeViewContainer}>
                     <View style={styles.container}>
                         {
-                            renderGame ? <GameContainer players={finalPlayerList} />
+                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)}/>
                                 :
                                 <View style={styles.addPlayersContainer}>
                                     <Image source={require('../images/logo3.png')} style={{ width: 160, height: 160 }} />
