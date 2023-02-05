@@ -23,9 +23,11 @@ export default function HomePage() {
         inputRange: [0, 1],
         outputRange: ["rgb(168,54,235)", "rgb(60,9,227)"]
     })
+
     const animatedStyle = {
         backgroundColor: boxInterpolation
     }
+
     // infinite background color animation.
     function cycleAnimation() {
         Animated.sequence([
