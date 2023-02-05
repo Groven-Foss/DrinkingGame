@@ -16,6 +16,7 @@ export type Player = {
 }
 
 export interface NameInputProps {
-    updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void,
-    id: number
+    updatePlayerNames: (name: string, i: number, deleteInput: boolean) => void;
+    id: number;
+    isAutoFocus: boolean;
 }
