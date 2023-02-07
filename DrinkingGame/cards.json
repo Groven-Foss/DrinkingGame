@@ -104,5 +104,21 @@
     "backgroundColor": "yellow",
     "shouldHaveNextCards": false,
     "nextCards": []
+  },
+
+  {
+    "text": "LOV Å HÅPE: \n\nHver spiller skal på rundgang prøve å spå hva det neste kortet i bunken er.\nFørst tipper du hvilket kort du tror det er, deretter snur du det øverste kortet i bunken.\n\n- Spår du FEIL: drikk 3 slurker\n- Spår du RIKTIG TALL: del ut 5 slurker\n-Spår du RIKTIG TALL og TYPE: del ut en chugg\n\nGå runden, #1 starter! ",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+
+  {
+    "text": "#1 og #2 skal ut i\nRYGG MOT RYGG",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
   }
 ]

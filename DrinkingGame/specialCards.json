@@ -1,0 +1,43 @@
+[
+  {
+    "text": "Special Announcement 1",
+    "preferredPlacementIndexes": [5, 10, 15],
+    "minRequiredPlayers": 2,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Special Announcement 2",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Special Announcement 3",
+            "minRequiredPlayers": 2,
+            "backgroundColor": "yellow",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "text": "SHERIFF 1",
+    "preferredPlacementIndexes": [8, 15],
+    "minRequiredPlayers": 2,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "SHERIFF 2",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": false,
+        "nextCards": []
+      }
+    ]
+  }
+]

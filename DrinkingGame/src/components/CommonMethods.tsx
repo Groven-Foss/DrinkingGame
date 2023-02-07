@@ -1,5 +1,5 @@
 import * as ScreenOrientation from 'expo-screen-orientation';
-import {AnnouncementProps} from "../types/types";
+import {AnnouncementProps, SpecialAnnouncementProps} from "../types/types";
 
 /**
  * Changes screen orientation
@@ -195,28 +195,47 @@ const findNumOfObjectsInList = (
     return numOfObjects;
 }
 
-export const addSpecialAnnouncementToList = (announcement: AnnouncementProps, preferredIndex: number, announcementList: AnnouncementProps[]): AnnouncementProps[] => {
-
+/**
+ * Add a "special announcement" to a list of announcements.
+ * - An announcement is considered "special" when its descendants should not come right after it, but rather come e.g 5 announcements later.
+ *
+ * @param {SpecialAnnouncementProps} specialAnnouncement - The special announcement to add.
+ * @param {SpecialAnnouncementProps[]} announcementList - The list that we want to add the special announcement to.
+ *
+ * @return {AnnouncementProps[]} Updated / modified list of announcements.
+ */
+export const addSpecialAnnouncementToList = (specialAnnouncement: SpecialAnnouncementProps, announcementList: AnnouncementProps[]): AnnouncementProps[] => {
     let isValidIndex: boolean = false;
-    let hasNoMoreDescendants = false;
-    let listIndex: number = preferredIndex;
-    let count = 0;
-    let announcementToAdd: AnnouncementProps = announcement;
+    let hasNoMoreDescendants: boolean = false;
+    let preferredIndexesIndex: number = 0; // Index used in preferredIndexes
+    let preferredIndexes: number[] = (specialAnnouncement.preferredPlacementIndexes ? specialAnnouncement.preferredPlacementIndexes : [0, 0, 0]) // Preferred indexes for the special announcement and its descendants
+
+    let announcementListIndex: number = preferredIndexes[preferredIndexesIndex]; // Placement index - in announcemnetList, where do we want to add the new special announcement?
+
+    let count: number = 0;
+    let announcementToAdd: SpecialAnnouncementProps = specialAnnouncement;
 
     while (!hasNoMoreDescendants) {
+        // Avoid infinite loop
         count += 1;
-        if (count >= 70 ) {
+        if (count >= 100 ) {
             break;
         }
         // Find a valid index to add the announcement
         while (!isValidIndex) {
-            console.log("List Index: " + listIndex);
-            if (!announcementList[listIndex].shouldHaveNextCards) {
+            if (!announcementList[announcementListIndex].shouldHaveNextCards) {
                 // Add the announcement to the list at the correct index
-                announcementList.splice(listIndex + 1, 0, announcementToAdd);
+                const convertedAnnouncementToAdd: AnnouncementProps = {
+                    text: announcementToAdd.text,
+                    minRequiredPlayers: announcementToAdd.minRequiredPlayers,
+                    backgroundColor: announcementToAdd.backgroundColor,
+                    shouldHaveNextCards: announcementToAdd.shouldHaveNextCards,
+                    nextCards: announcementToAdd.nextCards
+                }
+                announcementList.splice(announcementListIndex + 1, 0, convertedAnnouncementToAdd);
                 isValidIndex = true;
             } else {
-                listIndex += 1;
+                announcementListIndex += 1;
             }
 
             // Avoid infinite loop
@@ -230,11 +249,19 @@ export const addSpecialAnnouncementToList = (announcement: AnnouncementProps, pr
         if (announcementToAdd.shouldHaveNextCards && announcementToAdd.nextCards.length > 0) {
             announcementToAdd = announcementToAdd.nextCards[0];
             isValidIndex = false;
-            listIndex = listIndex + 10;
+            preferredIndexesIndex += 1;
+
+            // Error handling. Check if the first announcement ended up with a higher index than what the descendant should have
+            if (announcementListIndex >= preferredIndexes[preferredIndexesIndex]) {
+                announcementListIndex += 5;
+            } else {
+                announcementListIndex = preferredIndexes[preferredIndexesIndex];
+            }
 
             // Error handling
-            if (announcementList.length < listIndex) {
-                console.log("Error: announcementList.length < listIndex. addSpecialAnnouncementToList")
+            if (announcementList.length < announcementListIndex) {
+                console.log("Error: announcementList.length < listIndex. addSpecialAnnouncementToList");
+                //return announcementList;
                 throw new Error("listIndex is too big");
             }
         } else {

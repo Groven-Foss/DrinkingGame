@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
+import { AnnouncementProps, GameContainerProps, Player, SpecialAnnouncementProps } from "../types/types";
 import { Announcement } from "../components/Announcement";
 import { Pressable, StyleSheet, View } from "react-native";
 import { addSpecialAnnouncementToList, changeScreenOrientation } from "../components/CommonMethods";
@@ -16,29 +16,21 @@ export default function GameContainer ({ players, announcementList }: GameContai
     const [isFirstRenderOfGameContainer, setIsFirstRenderOfGameContainer] = useState<boolean>(true);
     const [isFirstRenderOfAnnouncement, setIsFirstRenderOfAnnouncement] = useState<boolean>(true);
 
-    // Test data
-    const specialAnnouncement: AnnouncementProps = {
-        text: "Special Announcement 1",
-        minRequiredPlayers: 2,
-        backgroundColor: "red",
-        shouldHaveNextCards: true,
-        nextCards: [
-            {
-                text: "Special Announcement 2",
-                minRequiredPlayers: 2,
-                backgroundColor: "blue",
-                shouldHaveNextCards: false,
-                nextCards: []
-            }
-        ]
-    }
+    // Special announcements
+    const specialAnnouncements: SpecialAnnouncementProps[] = require('../../specialCards.json');
 
-    // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
+        // Change screen orientation to LANDSCAPE when game is initialized
         changeScreenOrientation("landscape").then(r => null);
-        announcementList = addSpecialAnnouncementToList(specialAnnouncement, 10, announcementList);
+
+        // Add special announcements
+        if (specialAnnouncements.length > 0) {
+            addSpecialAnnouncements(specialAnnouncements);
+        }
+
+        // Update announcements with player-names
         updateAnnouncementWithNames();
-    }, [announcementList])
+    }, [announcementList, specialAnnouncements])
 
     useEffect(() => {
         // Add the last card to the announcementList: Game is Over
@@ -90,6 +82,13 @@ export default function GameContainer ({ players, announcementList }: GameContai
             }
         }
     }, [renderAnnouncementDirection])
+
+    // Add all special announcements
+    const addSpecialAnnouncements = (specialAnnouncements: SpecialAnnouncementProps[]) => {
+        specialAnnouncements.forEach(specialAnnouncement => {
+            announcementList = addSpecialAnnouncementToList(specialAnnouncement, announcementList);
+        })
+    }
 
     // Update all announcements, and add in random names
     const updateAnnouncementWithNames = () => {

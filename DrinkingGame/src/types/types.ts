@@ -6,6 +6,15 @@ export type AnnouncementProps = {
     nextCards: AnnouncementProps[];
 };
 
+export type SpecialAnnouncementProps = {
+    text: string;
+    preferredPlacementIndexes?: number[];
+    minRequiredPlayers: number;
+    backgroundColor: string;
+    shouldHaveNextCards: boolean;
+    nextCards: AnnouncementProps[];
+}
+
 export interface GameContainerProps {
     players: Player[],
     announcementList: AnnouncementProps[]
