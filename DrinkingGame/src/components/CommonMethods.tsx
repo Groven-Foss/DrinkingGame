@@ -194,3 +194,54 @@ const findNumOfObjectsInList = (
 
     return numOfObjects;
 }
+
+export const addSpecialAnnouncementToList = (announcement: AnnouncementProps, preferredIndex: number, announcementList: AnnouncementProps[]): AnnouncementProps[] => {
+
+    let isValidIndex: boolean = false;
+    let hasNoMoreDescendants = false;
+    let listIndex: number = preferredIndex;
+    let count = 0;
+    let announcementToAdd: AnnouncementProps = announcement;
+
+    while (!hasNoMoreDescendants) {
+        count += 1;
+        if (count >= 70 ) {
+            break;
+        }
+        // Find a valid index to add the announcement
+        while (!isValidIndex) {
+            console.log("List Index: " + listIndex);
+            if (!announcementList[listIndex].shouldHaveNextCards) {
+                // Add the announcement to the list at the correct index
+                announcementList.splice(listIndex + 1, 0, announcementToAdd);
+                isValidIndex = true;
+            } else {
+                listIndex += 1;
+            }
+
+            // Avoid infinite loop
+            count += 1;
+            if (count >= 70 ) {
+                break;
+            }
+        }
+
+        // TODO: Make it so that the next announcement is randomly chosen. Now, it only chooses the first one in nextCards
+        if (announcementToAdd.shouldHaveNextCards && announcementToAdd.nextCards.length > 0) {
+            announcementToAdd = announcementToAdd.nextCards[0];
+            isValidIndex = false;
+            listIndex = listIndex + 10;
+
+            // Error handling
+            if (announcementList.length < listIndex) {
+                console.log("Error: announcementList.length < listIndex. addSpecialAnnouncementToList")
+                throw new Error("listIndex is too big");
+            }
+        } else {
+            hasNoMoreDescendants = true;
+        }
+    }
+
+    return announcementList;
+
+}

@@ -101,7 +101,7 @@ export default function HomePage() {
                 <View style={styles.InsideSafeViewContainer}>
                     <View style={styles.container}>
                         {
-                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)}/>
+                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(30)}/>
                                 :
                                 <View style={styles.addPlayersContainer}>
                                     <Image source={require('../images/logo3.png')} style={{ width: 160, height: 160 }} />

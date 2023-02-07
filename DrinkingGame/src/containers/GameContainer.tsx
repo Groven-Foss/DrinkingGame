@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
 import { Announcement } from "../components/Announcement";
 import { Pressable, StyleSheet, View } from "react-native";
-import { changeScreenOrientation } from "../components/CommonMethods";
+import { addSpecialAnnouncementToList, changeScreenOrientation } from "../components/CommonMethods";
 
 export default function GameContainer ({ players, announcementList }: GameContainerProps) {
 
@@ -13,12 +13,30 @@ export default function GameContainer ({ players, announcementList }: GameContai
     const [renderAnnouncementDirection, setRenderAnnouncementDirection] = useState("right"); // Direction - used for animation in Announcement.tsx
 
     // Variables - avoid animations the first time we render an Announcement
-    const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
+    const [isFirstRenderOfGameContainer, setIsFirstRenderOfGameContainer] = useState<boolean>(true);
     const [isFirstRenderOfAnnouncement, setIsFirstRenderOfAnnouncement] = useState<boolean>(true);
+
+    // Test data
+    const specialAnnouncement: AnnouncementProps = {
+        text: "Special Announcement 1",
+        minRequiredPlayers: 2,
+        backgroundColor: "red",
+        shouldHaveNextCards: true,
+        nextCards: [
+            {
+                text: "Special Announcement 2",
+                minRequiredPlayers: 2,
+                backgroundColor: "blue",
+                shouldHaveNextCards: false,
+                nextCards: []
+            }
+        ]
+    }
 
     // Change screen orientation to LANDSCAPE when game is initialized
     useEffect(() => {
         changeScreenOrientation("landscape").then(r => null);
+        announcementList = addSpecialAnnouncementToList(specialAnnouncement, 10, announcementList);
         updateAnnouncementWithNames();
     }, [announcementList])
 
@@ -62,8 +80,8 @@ export default function GameContainer ({ players, announcementList }: GameContai
     }
 
     useEffect(() => {
-        if (isFirstRender) {
-            setIsFirstRender(false);
+        if (isFirstRenderOfGameContainer) {
+            setIsFirstRenderOfGameContainer(false);
         } else {
             if (renderAnnouncementDirection === "left") {
                 setCurrentAnnouncementIndex(currentAnnouncementIndex - 1);
