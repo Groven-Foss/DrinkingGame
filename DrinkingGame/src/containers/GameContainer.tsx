@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
+import { AnnouncementProps, GameContainerProps, Player, Text } from "../types/types";
 import { Announcement } from "../components/Announcement";
 import { Pressable, StyleSheet, View} from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods";
