@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
 import { Announcement } from "../components/Announcement";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View} from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods";
+import InGameMenu from "../components/InGameMenu";
 
 export default function GameContainer ({ players, announcementList }: GameContainerProps) {
 
@@ -203,6 +204,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
 
     return (
         <View style={styles.container}>
+            <InGameMenu />
             <View style={styles.nextButtonView}>
                 
                 <Pressable style={{width: "100%", height: "100%", }} onPress={() => nextAnnouncement()} />
