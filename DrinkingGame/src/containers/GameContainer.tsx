@@ -5,8 +5,9 @@ import { Pressable, StyleSheet, View} from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods";
 import InGameMenu from "../components/InGameMenu";
 
-export default function GameContainer ({ players, announcementList }: GameContainerProps) {
-
+export default function GameContainer ({ players, announcementList, setRenderGame}: GameContainerProps) {
+    console.log(players)
+    console.log(announcementList[0].text)
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
     const [isModifyingAnnouncemnetList, setIsModifyingAnnouncementList] = useState(true);
@@ -204,7 +205,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
 
     return (
         <View style={styles.container}>
-            <InGameMenu />
+            <InGameMenu setRenderGame={setRenderGame} players={[]} announcementList={[]}/>
             <View style={styles.nextButtonView}>
                 
                 <Pressable style={{width: "100%", height: "100%", }} onPress={() => nextAnnouncement()} />

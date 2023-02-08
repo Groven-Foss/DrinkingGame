@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View, Text} from "react-native";
 import Entypo from 'react-native-vector-icons/Entypo'
+import { GameContainerProps } from "../types/types";
+import { changeScreenOrientation } from "./CommonMethods";
 
 
-export default function HomePage() {
+export default function InGameMenu({setRenderGame}: GameContainerProps) {
 
     const [menuVisible, setMenuVisible] = useState(false)
 
@@ -16,6 +18,11 @@ export default function HomePage() {
         }
     }
 
+    const returnToMainMenu = () => {
+        console.log("Slutt spill pressed")
+        setRenderGame(false)
+        changeScreenOrientation("portrait").then(r => null);
+    }
     return (
         <View style={!menuVisible ? styles.inGameMenuContainerClosed : styles.inGameMenuContainerOpen}>
             <Pressable onPress={() => openMenu()}>
@@ -25,7 +32,7 @@ export default function HomePage() {
                 <View style={styles.inGameMenu}>
                     <Pressable onPress={() => console.log("Legg til navn pressed")}><Text style={styles.menuText}>Legg til Navn</Text></Pressable>
                     <Pressable onPress={() => console.log("Settings pressed")}><Text style={styles.menuText}>Settings</Text></Pressable>
-                    <Pressable onPress={() => console.log("Slutt spill pressed")}><Text style={styles.menuText}>Slutt spill</Text></Pressable>
+                    <Pressable onPress={() => returnToMainMenu()}><Text style={styles.menuText}>Slutt spill</Text></Pressable>
                 </View>
             }
         </View>

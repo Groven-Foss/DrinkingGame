@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { generateAnnouncementList } from "./CommonMethods";
 import {AnnouncementProps} from "../types/types";
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
@@ -27,6 +27,16 @@ export default function HomePage() {
     const animatedStyle = {
         backgroundColor: boxInterpolation
     }
+
+    // Resets homepage hooks when the game is exited.
+    useEffect(() => {
+        if (renderGame == false) {
+            setFinalPlayerList([])
+            setInputFields(1)
+            setPlayers(1)
+            setPlayerList([])
+        }
+    }, [renderGame])
 
     // infinite background color animation.
     function cycleAnimation() {
@@ -101,7 +111,7 @@ export default function HomePage() {
                 <View style={styles.InsideSafeViewContainer}>
                     <View style={styles.container}>
                         {
-                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)}/>
+                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)} setRenderGame={setRenderGame}/>
                                 :
                                 <View style={styles.addPlayersContainer}>
                                     <Image source={require('../images/logo3.png')} style={{ width: 160, height: 160 }} />

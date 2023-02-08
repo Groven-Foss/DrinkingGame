@@ -8,7 +8,8 @@ export type AnnouncementProps = {
 
 export interface GameContainerProps {
     players: Player[],
-    announcementList: AnnouncementProps[]
+    announcementList: AnnouncementProps[],
+    setRenderGame: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export type Player = {
