@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { generateAnnouncementList } from "./CommonMethods";
+import { changeScreenOrientation, generateAnnouncementList } from "./CommonMethods";
 import {AnnouncementProps} from "../types/types";
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 import GameContainer from "../containers/GameContainer";
@@ -28,13 +28,10 @@ export default function HomePage() {
         backgroundColor: boxInterpolation
     }
 
-    // Resets homepage hooks when the game is exited.
+    // Resets homepage when the game is exited.
     useEffect(() => {
         if (renderGame == false) {
-            setFinalPlayerList([])
-            setInputFields(1)
-            setPlayers(1)
-            setPlayerList([])
+            resetHomePage()
         }
     }, [renderGame])
 
@@ -59,6 +56,16 @@ export default function HomePage() {
         });
     }
     cycleAnimation();
+
+    // Resets homepage values. 
+    const resetHomePage = () => {
+        changeScreenOrientation("portrait").then(r => null);
+        setFinalPlayerList([])
+        setInputFields(1)
+        setPlayers(1)
+        setPlayerList([])
+        setIsAutoFocus(false)
+    }
 
     // check if you can add a new player input or if maxed is reached
     const addNewPlayerInput = () => {

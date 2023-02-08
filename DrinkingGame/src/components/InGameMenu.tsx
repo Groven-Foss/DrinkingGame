@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View, Text} from "react-native";
 import Entypo from 'react-native-vector-icons/Entypo'
 import { GameContainerProps } from "../types/types";
-import { changeScreenOrientation } from "./CommonMethods";
 
 
 export default function InGameMenu({setRenderGame}: GameContainerProps) {
@@ -19,9 +18,7 @@ export default function InGameMenu({setRenderGame}: GameContainerProps) {
     }
 
     const returnToMainMenu = () => {
-        console.log("Slutt spill pressed")
         setRenderGame(false)
-        changeScreenOrientation("portrait").then(r => null);
     }
     return (
         <View style={!menuVisible ? styles.inGameMenuContainerClosed : styles.inGameMenuContainerOpen}>

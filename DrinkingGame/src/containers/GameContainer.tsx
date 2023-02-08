@@ -6,8 +6,6 @@ import { changeScreenOrientation } from "../components/CommonMethods";
 import InGameMenu from "../components/InGameMenu";
 
 export default function GameContainer ({ players, announcementList, setRenderGame}: GameContainerProps) {
-    console.log(players)
-    console.log(announcementList[0].text)
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
     const [isModifyingAnnouncemnetList, setIsModifyingAnnouncementList] = useState(true);
@@ -38,9 +36,9 @@ export default function GameContainer ({ players, announcementList, setRenderGam
     }, [isModifyingAnnouncemnetList])
 
     const nextAnnouncement = () => {
+        
         // Check if there is a next announcement
         if (currentAnnouncementIndex != modifiedAnnouncementList.length - 1) {
-
             // Avoid animation for the first announcement
             setIsFirstRenderOfAnnouncement(false);
 
@@ -49,6 +47,9 @@ export default function GameContainer ({ players, announcementList, setRenderGam
             } else {
                 setRenderAnnouncementDirection("right");
             }
+        } else {
+            // Goes back to Homepage
+            setRenderGame(false)
         }
     }
 
