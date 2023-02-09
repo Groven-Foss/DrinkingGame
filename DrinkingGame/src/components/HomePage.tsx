@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         // borderColor: 'blue',
         // borderWidth: 5,
         alignItems: 'center',
-        paddingTop: '40%',
+        paddingTop: '45%',
         // justifyContent: 'center',
         marginBottom: '15%',
     },
