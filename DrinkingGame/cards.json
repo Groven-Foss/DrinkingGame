@@ -99,10 +99,135 @@
   },
 
   {
-    "text": "Rask Fakta!\n\nAlle trekker et kort hver og ser på kort-typen (hjerter, ruter osv.). Alle spillere skal på rundgang si en quick fakta om seg selv som ingen vet om. De som trakk et kort av rød type skal si en sann fakta, de med mørk type skal lyve. På runde skal hver spiller prøve å finne ut hvem som lyver og hvem som sier sannheten. En slurk hver gang du gjetter feil! #1 starter runden.",
+    "text": "Rask Fakta!\n\nAlle trekker et kort hver og ser på kort-typen (hjerter, ruter osv.). Alle spillere skal på rundgang si en quick fakta om seg selv som ingen i rommet vet om. De som trakk et kort av rød type skal si en sann fakta, de med mørk type skal lyve. På runde skal hver spiller prøve å finne ut hvem som lyver og hvem som sier sannheten. En slurk hver gang du gjetter feil! #1 starter runden.",
     "minRequiredPlayers": 1,
     "backgroundColor": "yellow",
     "shouldHaveNextCards": false,
     "nextCards": []
+  },
+  {
+    "text": "Presidentvalg!\n\n#1 og #2 Dere har jobbet dere helt til finalen av presidentvalget. Nå skal en president endelig bli utnevnt.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Begge kandidater trekk 2 kort hver og legg de face-down. De andre spillerne kan bet'e antall slurker på hvem som dere tror blir president.",
+        "minRequiredPlayers": 2,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          {
+            "text": "Kandidatene kan nå snu kortene og legge sammen 'stemmene' (summen av kortene). Den med høyest sum er nå president, og vil forbli det i resten av spillet. De som bet'et på taperen må drikke 3 slurker hver.",
+            "minRequiredPlayers": 1,
+            "backgroundColor": "yellow",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "#1 trekk tre kort.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Les kortene høyt. Deretter velg ett av kortene, og legg de 2 andre bort.",
+        "minRequiredPlayers": 1,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": true,
+        "nextCards": [
+          { 
+            "text": "Alle skal tippe hvilket kort #1 valgte. Får man riktig kan man dele ut 5 slurker, tar man feil må man drikke 5 slurker. #2 starter.",
+            "minRequiredPlayers": 1,
+            "backgroundColor": "yellow",
+            "shouldHaveNextCards": false,
+            "nextCards": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "DJ skip til neste sang. #1 og #2 må gjette sangen. Ta 3 slurk hvis dere ikke klarer det, del ut 3 hvis dere klarer det",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "#1 velg et kort fra 2 til ess, og lag en regel når noen plukker det kortet.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "Alle spillere trekker 1 kort, ikke snu kortet enda",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Hvis noen har hjerter billedkort, kan vedkommende lage en regel som varer ut spillet",
+        "minRequiredPlayers": 1,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": false,
+        "nextCards": []
+      }
+    ]
+  },
+  {
+    "text": "*Spiller 1*, ta kortstokken og gå runden der hver spiller skal si et tall. Treffer en på første må *Spiller 1* chugge. Hvis ikke sier *Spiller 1* lavere/høyere utifra hva kortet faktisk er. Treffer spillerne på andre forsøk må *Spiller 1* ta 3 slurker, hvis ikke tar spilleren 3 selv. Spillet slutter når runden er over, eller hvis noen treffer på første.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "#1 og #2, kort fortalt, dere må drikke 3 slurker.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "#1 og #2, kort fortalt, dere må drikke 2 slurker, men kan dele ut 2 hver.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "#1, trekk 1 kort. Antallet du trekker er antall slurker du kan dele ut hvis du sier en hemmelighet om deg selv som ingen vet i rommet. Hvis ikke må du ta det antallet slurker selv.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "#1 og #2, trekk 1 kort hver. Dere kan handle utifra hva slags type kort dere fikk:\n\nRuter: Du er i rute til å bli full, del ut 5 slurker til de mindre heldige. \n Kløver: Irsk tradisjon chugger man ølen på vorset. Del en chugg ut til den som er minst full.\n Hjerte: Del ut 2 slurker til en heldig sjel som har ditt hjerte.\n Spar: Du har spart deg for lenge, drikk 4 slurker.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "Pekeleken:\n\n Pek på den som er minst full, hold pekene deres inntil videre.",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": true,
+    "nextCards": [
+      {
+        "text": "Den som har fått flest pek, trekk et kort; Får du rød type må du drikke antall pek du har på deg, får du mørk type må alle som pekte på deg ta 3 slurker.",
+        "minRequiredPlayers": 1,
+        "backgroundColor": "yellow",
+        "shouldHaveNextCards": false,
+        "nextCards": []
+      }
+    ]
   }
 ]
