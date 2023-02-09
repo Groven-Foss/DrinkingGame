@@ -242,7 +242,8 @@ const styles = StyleSheet.create({
         // borderWidth: 5,
     },
     buttonText: {
-        color: 'white',
+        color: 'black',
+        fontWeight: 'bold',
         fontSize: 16,
     },
     addPlayerButton: {
@@ -252,8 +253,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         width: '25%',
         height: 45,
-        backgroundColor: '#94dd26',
-        // used to be backgroundColor: 'teal',
+        //backgroundColor: '#94dd26',
+        backgroundColor: 'green',
         shadowOffset: {
             width: 0,
             height: 3
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         width: '40%',
         height: '7%',
-        backgroundColor: 'green',
+        backgroundColor: '#94dd26',
         shadowOffset: {
             width: 0,
             height: 3
