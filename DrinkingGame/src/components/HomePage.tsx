@@ -135,8 +135,8 @@ export default function HomePage() {
                                         <View style={styles.nameContainer}>
                                             {
                                                 [...Array(inputFields).keys()].map((i) => {
-                                                    //nameInputList.push()
                                                     // i equals id of field
+                                                    // inputFields are the number of inputfields that should be generated
                                                     return (
                                                         <NameInput updatePlayerNames={updatePlayerNames} key={i} id={i} isAutoFocus={isAutoFocus} />
                                                     );
@@ -219,7 +219,8 @@ const styles = StyleSheet.create({
         // borderColor: 'blue',
         // borderWidth: 5,
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: '40%',
+        // justifyContent: 'center',
         marginBottom: '15%',
     },
     deleteInputField: {
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 3,
         width: '25%',
-        height: '7%',
+        height: 45,
         backgroundColor: '#94dd26',
         // used to be backgroundColor: 'teal',
         shadowOffset: {
@@ -278,7 +279,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         width: '40%',
         height: '7%',
-        backgroundColor: 'blue',
+        backgroundColor: 'green',
         shadowOffset: {
             width: 0,
             height: 3
