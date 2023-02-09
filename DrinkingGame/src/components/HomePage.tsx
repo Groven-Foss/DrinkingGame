@@ -65,6 +65,7 @@ export default function HomePage() {
         setPlayers(1)
         setPlayerList([])
         setIsAutoFocus(false)
+        setIsMaxed(false)
     }
 
     // check if you can add a new player input or if maxed is reached
@@ -121,7 +122,7 @@ export default function HomePage() {
                             renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)} setRenderGame={setRenderGame}/>
                                 :
                                 <View style={styles.addPlayersContainer}>
-                                    <Image source={require('../images/logo3.png')} style={{ width: 160, height: 160 }} />
+                                    <Image source={require('../images/logo_kortfortalt_6.png')} style={{ width: 200, height: 200 }} />
                                     <ScrollView
                                         style={styles.scrollViewContainer}
                                         nestedScrollEnabled={true}
@@ -250,7 +251,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         width: '25%',
         height: '7%',
-        backgroundColor: 'teal',
+        backgroundColor: '#94dd26',
+        // used to be backgroundColor: 'teal',
         shadowOffset: {
             width: 0,
             height: 3
