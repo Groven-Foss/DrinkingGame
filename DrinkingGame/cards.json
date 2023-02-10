@@ -1,24 +1,10 @@
 [
   {
-    "text": "Alle trekker 1 kort hver",
+    "text": "Alle trekker 1 kort hver.",
     "minRequiredPlayers": 2,
     "backgroundColor": "red",
     "shouldHaveNextCards": true,
     "nextCards": [
-      {
-        "text": "Den som har det høyeste kortet kan dele ut 5 slurker",
-        "minRequiredPlayers": 2,
-        "backgroundColor": "blue",
-        "shouldHaveNextCards": false,
-        "nextCards": []
-      },
-      {
-        "text": "Den med det laveste kortet må drikke 3 slurker",
-        "minRequiredPlayers": 2,
-        "backgroundColor": "blue",
-        "shouldHaveNextCards": false,
-        "nextCards": []
-      },
       {
         "text": "FLIPPEKONKURRANSE! \n\nAlle spillere flipper kortene samtidig. Får man face-up går man videre, får man face-down er man ute. Flipp helt fram til det gjenstår en vinner, og trykk deretter videre...",
         "minRequiredPlayers": 3,
@@ -43,45 +29,6 @@
       }
     ]
   },
-
-  {
-    "text": "#1 trekker 3 kort. \nFortell de andre hvilke kort du trakk.",
-    "minRequiredPlayers": 6,
-    "backgroundColor": "orange",
-    "shouldHaveNextCards": true,
-    "nextCards": [
-      {
-        "text": "#1, velg 1 kort og legge bort de 2 andre.\nIkke avslør valget ditt for de andre \n\nGå runden og tipp hvilket kort #1 valgte. \nGå videre når alle har tippet. \n#2 starter runden!",
-        "minRequiredPlayers": 7,
-        "backgroundColor": "purple",
-        "shouldHaveNextCards": true,
-        "nextCards": [
-          {
-            "text": "Gratulerer til alle de synske! \nDe som tippet riktig kan dele ut 2 slurker",
-            "minRequiredPlayers": 7,
-            "backgroundColor": "purple",
-            "shouldHaveNextCards": false,
-            "nextCards": []
-          },
-          {
-            "text": "Lønner seg ikke alltid å gjette riktig. \nAlle som tippet riktig må drikke!",
-            "minRequiredPlayers": 7,
-            "backgroundColor": "purple",
-            "shouldHaveNextCards": false,
-            "nextCards": []
-          },
-          {
-            "text": "Alle som tippet feil må selvfølgelig drikke. Drikk 2 slurker!",
-            "minRequiredPlayers": 7,
-            "backgroundColor": "purple",
-            "shouldHaveNextCards": false,
-            "nextCards": []
-          }
-        ]
-      }
-    ]
-  },
-
   {
     "text": "FELLESSKÅL!",
     "minRequiredPlayers": 1,
@@ -89,7 +36,6 @@
     "shouldHaveNextCards": false,
     "nextCards": []
   },
-
   {
     "text": "#1 trekker 1 kort. \nAlle i rommet skal drikke antall slurker som kortet viser!",
     "minRequiredPlayers": 1,
@@ -97,7 +43,6 @@
     "shouldHaveNextCards": false,
     "nextCards": []
   },
-
   {
     "text": "Rask Fakta!\n\nAlle trekker et kort hver og ser på kort-typen (hjerter, ruter osv.). Alle spillere skal på rundgang si en quick fakta om seg selv som ingen i rommet vet om. De som trakk et kort av rød type skal si en sann fakta, de med mørk type skal lyve. På runde skal hver spiller prøve å finne ut hvem som lyver og hvem som sier sannheten. En slurk hver gang du gjetter feil! #1 starter runden.",
     "minRequiredPlayers": 1,
@@ -166,22 +111,7 @@
     "nextCards": []
   },
   {
-    "text": "Alle spillere trekker 1 kort, ikke snu kortet enda",
-    "minRequiredPlayers": 1,
-    "backgroundColor": "yellow",
-    "shouldHaveNextCards": true,
-    "nextCards": [
-      {
-        "text": "Hvis noen har hjerter billedkort, kan vedkommende lage en regel som varer ut spillet",
-        "minRequiredPlayers": 1,
-        "backgroundColor": "yellow",
-        "shouldHaveNextCards": false,
-        "nextCards": []
-      }
-    ]
-  },
-  {
-    "text": "*Spiller 1*, ta kortstokken og gå runden der hver spiller skal si et tall. Treffer en på første må *Spiller 1* chugge. Hvis ikke sier *Spiller 1* lavere/høyere utifra hva kortet faktisk er. Treffer spillerne på andre forsøk må *Spiller 1* ta 3 slurker, hvis ikke tar spilleren 3 selv. Spillet slutter når runden er over, eller hvis noen treffer på første.",
+    "text": "#1, ta kortstokken og gå runden der hver spiller skal tippe neste kort i bunken. Treffer en på første må #1 chugge. Hvis ikke sier #1 lavere/høyere utifra hva kortet faktisk er. Treffer spillerne på andre forsøk må #1 ta 3 slurker, hvis ikke tar spilleren selv 3 slurker. Spillet slutter når runden er over, eller hvis noen treffer på første.",
     "minRequiredPlayers": 1,
     "backgroundColor": "yellow",
     "shouldHaveNextCards": false,
@@ -229,5 +159,19 @@
         "nextCards": []
       }
     ]
+  },
+  {
+    "text": "Den som trekker det laveste kortet må chugge/shotte. Gå runden, #1 starter!",
+    "minRequiredPlayers": 1,
+    "backgroundColor": "yellow",
+    "shouldHaveNextCards": false,
+    "nextCards": []
+  },
+  {
+    "text": "Den som har det høyeste kortet kan dele ut 10 slurker. Gå runden, #1 starter!",
+    "minRequiredPlayers": 2,
+    "backgroundColor": "blue",
+    "shouldHaveNextCards": false,
+    "nextCards": []
   }
 ]
