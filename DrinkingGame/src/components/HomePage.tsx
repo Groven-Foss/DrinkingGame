@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { generateAnnouncementList } from "./CommonMethods";
+import React, { useState, useRef, useEffect } from 'react'
+import { changeScreenOrientation, generateAnnouncementList } from "./CommonMethods";
 import {AnnouncementProps} from "../types/types";
 import { Animated, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 import GameContainer from "../containers/GameContainer";
@@ -28,6 +28,13 @@ export default function HomePage() {
         backgroundColor: boxInterpolation
     }
 
+    // Resets homepage when the game is exited.
+    useEffect(() => {
+        if (renderGame == false) {
+            resetHomePage()
+        }
+    }, [renderGame])
+
     // infinite background color animation.
     function cycleAnimation() {
         Animated.sequence([
@@ -49,6 +56,17 @@ export default function HomePage() {
         });
     }
     cycleAnimation();
+
+    // Resets homepage values. 
+    const resetHomePage = () => {
+        changeScreenOrientation("portrait").then(r => null);
+        setFinalPlayerList([])
+        setInputFields(1)
+        setPlayers(1)
+        setPlayerList([])
+        setIsAutoFocus(false)
+        setIsMaxed(false)
+    }
 
     // check if you can add a new player input or if maxed is reached
     const addNewPlayerInput = () => {
@@ -101,10 +119,10 @@ export default function HomePage() {
                 <View style={styles.InsideSafeViewContainer}>
                     <View style={styles.container}>
                         {
-                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)}/>
+                            renderGame ? <GameContainer players={finalPlayerList} announcementList={generateAnnouncementList(20)} setRenderGame={setRenderGame}/>
                                 :
                                 <View style={styles.addPlayersContainer}>
-                                    <Image source={require('../images/logo3.png')} style={{ width: 160, height: 160 }} />
+                                    <Image source={require('../images/logo_kortfortalt_6.png')} style={{ width: 200, height: 200 }} />
                                     <ScrollView
                                         style={styles.scrollViewContainer}
                                         nestedScrollEnabled={true}
@@ -117,8 +135,8 @@ export default function HomePage() {
                                         <View style={styles.nameContainer}>
                                             {
                                                 [...Array(inputFields).keys()].map((i) => {
-                                                    //nameInputList.push()
                                                     // i equals id of field
+                                                    // inputFields are the number of inputfields that should be generated
                                                     return (
                                                         <NameInput updatePlayerNames={updatePlayerNames} key={i} id={i} isAutoFocus={isAutoFocus} />
                                                     );
@@ -201,7 +219,8 @@ const styles = StyleSheet.create({
         // borderColor: 'blue',
         // borderWidth: 5,
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: '40%',
+        // justifyContent: 'center',
         marginBottom: '15%',
     },
     deleteInputField: {
@@ -232,8 +251,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 3,
         width: '25%',
-        height: '7%',
-        backgroundColor: 'teal',
+        height: 45,
+        backgroundColor: '#94dd26',
+        // used to be backgroundColor: 'teal',
         shadowOffset: {
             width: 0,
             height: 3
@@ -259,7 +279,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         width: '40%',
         height: '7%',
-        backgroundColor: 'blue',
+        backgroundColor: 'green',
         shadowOffset: {
             width: 0,
             height: 3

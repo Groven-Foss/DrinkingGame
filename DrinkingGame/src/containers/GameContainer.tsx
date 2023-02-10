@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AnnouncementProps, GameContainerProps, Player } from "../types/types";
+import { AnnouncementProps, GameContainerProps, Player, Text } from "../types/types";
 import { Announcement } from "../components/Announcement";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View} from "react-native";
 import { changeScreenOrientation } from "../components/CommonMethods";
+import InGameMenu from "../components/InGameMenu";
 
-export default function GameContainer ({ players, announcementList }: GameContainerProps) {
-
+export default function GameContainer ({ players, announcementList, setRenderGame}: GameContainerProps) {
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
     const [isModifyingAnnouncemnetList, setIsModifyingAnnouncementList] = useState(true);
@@ -36,9 +36,9 @@ export default function GameContainer ({ players, announcementList }: GameContai
     }, [isModifyingAnnouncemnetList])
 
     const nextAnnouncement = () => {
+        
         // Check if there is a next announcement
         if (currentAnnouncementIndex != modifiedAnnouncementList.length - 1) {
-
             // Avoid animation for the first announcement
             setIsFirstRenderOfAnnouncement(false);
 
@@ -47,6 +47,9 @@ export default function GameContainer ({ players, announcementList }: GameContai
             } else {
                 setRenderAnnouncementDirection("right");
             }
+        } else {
+            // Goes back to Homepage
+            setRenderGame(false)
         }
     }
 
@@ -203,6 +206,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
 
     return (
         <View style={styles.container}>
+            <InGameMenu setRenderGame={setRenderGame} players={[]} announcementList={[]}/>
             <View style={styles.nextButtonView}>
                 
                 <Pressable style={{width: "100%", height: "100%", }} onPress={() => nextAnnouncement()} />
