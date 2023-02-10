@@ -5,6 +5,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { addSpecialAnnouncementToList, changeScreenOrientation } from "../components/CommonMethods";
 
 export default function GameContainer ({ players, announcementList }: GameContainerProps) {
+    console.log("rendering GameContainer");
 
     // Keeps track of what announcement we're currently at. We begin at announcement 0
     const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
@@ -18,6 +19,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
 
     // Special announcements
     const specialAnnouncements: SpecialAnnouncementProps[] = require('../../specialCards.json');
+    const [shouldAddAllSpecialAnnouncements, setShouldAddAllSpecialAnnouncemnets] = useState<boolean>(true);
 
     useEffect(() => {
         // Change screen orientation to LANDSCAPE when game is initialized
@@ -85,13 +87,16 @@ export default function GameContainer ({ players, announcementList }: GameContai
 
     // Add all special announcements
     const addSpecialAnnouncements = (specialAnnouncements: SpecialAnnouncementProps[]) => {
-        specialAnnouncements.forEach(specialAnnouncement => {
-            announcementList = addSpecialAnnouncementToList(specialAnnouncement, announcementList);
-        })
+        if (shouldAddAllSpecialAnnouncements) {
+            specialAnnouncements.forEach(specialAnnouncement => {
+                announcementList = addSpecialAnnouncementToList(specialAnnouncement, announcementList);
+            })
+        }
     }
 
     // Update all announcements, and add in random names
     const updateAnnouncementWithNames = () => {
+        console.log("Update announcement with names!");
 
         setModifiedAnnouncementList([]);
 
@@ -144,6 +149,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
      * @return {Player[]} A list of Players
      */
     const findRandomPlayers = (playerCount: number): Player[] => {
+        console.log("-------------KJØRER-----------");
         // Error handling
         if (playerCount > players.length) {
             console.log("arg: playerCount is too high in findRandomPlayers()");
@@ -157,9 +163,13 @@ export default function GameContainer ({ players, announcementList }: GameContai
         for (let i = 0; i < playerCount; i++) {
             let playerValid: boolean = false;
             let count: number = 0;
+            console.log(players);
+            console.log(playersToReturn);
+            console.log(usedIndexes);
 
             while (!playerValid) {
                 const randInt: number = Math.floor(Math.random() * (players.length - 1 + 1));
+                console.log(randInt);
                 if (!usedIndexes.includes(randInt)) {
                     if (!playersToReturn.includes(players[randInt])) {
                         playersToReturn.push(players[randInt]);
@@ -177,6 +187,7 @@ export default function GameContainer ({ players, announcementList }: GameContai
             }
         }
 
+        console.log(playersToReturn);
         return playersToReturn;
     }
 
